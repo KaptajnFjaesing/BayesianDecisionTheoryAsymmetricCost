@@ -121,14 +121,20 @@
 		\alpha \approx \int_{U^*}^{\infty} ds p(s|x,D,I)
 		\label{eq:decision}
 	\end{equation}
-	which is the definition of a the $\alpha$-quantile. Figure \ref{fig:2} show how $\alpha$ and $U^*$ are related via equation \eqref{eq:decision} in graphical terms (the $\alpha$-quantile).
+	which is the definition of a the $\alpha$-quantile. Figure \ref{fig:2} show how $\alpha$ and $U^*$ are related via equation \eqref{eq:decision} in graphical terms (the $\alpha$-quantile). Figure \ref{fig:3} show the relative difference between numerically optimizing the expected cost and the percentile, as a function of $\alpha$, for an arbitrary gamma distribution. Numerical imperfections aside, the figure shows that the two are identical. The code can be found in the src folder in the project directory.
+	
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width = 1\textwidth]{figures/alpha_plot.pdf}
 		\caption{Illustration of equation \eqref{eq:decision} with $\alpha = 0.05$. A simple normal distribution has been used for illustrative purposes while it is understood equation \eqref{eq:decision} generalize beyond this simple setting.}
 		\label{fig:2}
 	\end{figure}
-	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width = 0.8\textwidth]{figures/numerical_example.pdf}
+		\caption{The relative difference between numerically optimizing the expected cost and the percentile, as a function of $\alpha$.}
+		\label{fig:3}
+	\end{figure}
 	
 	\section{Summary and Discussion}	
 	It has been shown how quantile regression can, using Bayesian decision theory, be derived as the optimal decision rule in case of an asymmetric linear cost function. Conversely, it can be deduced that any deviation from such a cost function will yield a different optimal decision rule.

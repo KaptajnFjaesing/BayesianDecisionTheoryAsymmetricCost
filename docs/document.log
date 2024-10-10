@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  4 JUL 2024 22:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  10 OCT 2024 20:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -612,12 +612,19 @@ been already used, duplicate ignored
                    \relax 
 l.106 	\end{equation}
                       [1 <./figures/cost_plot.pdf>]
-<figures/alpha_plot.pdf, id=83, 722.7pt x 433.62pt>
+<figures/alpha_plot.pdf, id=84, 722.7pt x 433.62pt>
 File: figures/alpha_plot.pdf Graphic file (type pdf)
 <use figures/alpha_plot.pdf>
-Package pdftex.def Info: figures/alpha_plot.pdf  used on input line 127.
+Package pdftex.def Info: figures/alpha_plot.pdf  used on input line 128.
 (pdftex.def)             Requested size: 452.9679pt x 271.77934pt.
- [2] (document.bbl) [3 <./figures/alpha_plot.pdf>] (document.aux)
+<figures/numerical_example.pdf, id=89, 867.24pt x 578.16pt>
+File: figures/numerical_example.pdf Graphic file (type pdf)
+<use figures/numerical_example.pdf>
+Package pdftex.def Info: figures/numerical_example.pdf  used on input line 134.
+
+(pdftex.def)             Requested size: 362.37569pt x 241.58163pt.
+ [2] [3 <./figures/alpha_plot.pdf> <./figures/numerical_example.pdf>] (document
+.bbl) [4] (document.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
@@ -626,13 +633,13 @@ Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: 74E2B35655A7A9971DDC798DFC912500;262.
  ) 
 Here is how much of TeX's memory you used:
- 14638 strings out of 474370
- 228925 string characters out of 5740536
- 1938754 words of memory out of 5000000
- 36787 multiletter control sequences out of 15000+600000
+ 14648 strings out of 474370
+ 229141 string characters out of 5740536
+ 1939754 words of memory out of 5000000
+ 36795 multiletter control sequences out of 15000+600000
  572643 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,19n,93p,547b,475s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,19n,93p,547b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\roman\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti
 1095.pk> <C:\Users\roman\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ecrm1095.pk> <C:\Users\roman\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
@@ -653,9 +660,9 @@ public/amsfonts/cm/cmsy10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Pro
 grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (4 pages, 200003 bytes).
+Output written on document.pdf (5 pages, 215629 bytes).
 PDF statistics:
- 366 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 27 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 413 PDF objects out of 1000 (max. 8388607)
+ 18 named destinations out of 1000 (max. 500000)
+ 32 words of extra memory for PDF output out of 10000 (max. 10000000)
 
