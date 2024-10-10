@@ -44,7 +44,7 @@ for a in tqdm(np.arange(0.05, 1, 0.05)):
 plt.figure(figsize=(12, 8), constrained_layout=True)
 plt.plot(np.arange(0.05,1,0.05),(np.array(numerical_results)-np.array(analytical_results))/np.array(analytical_results))
 plt.grid(True)
-plt.xlabel('a', fontsize=12)
+plt.xlabel(r'$\alpha$', fontsize=12)
 plt.xlim([0,1])
 plt.ylabel('Relative difference between numerical and analytical predictions', fontsize=12)
 plt.axhline(y=0, color='gray', linestyle='--', linewidth=1)
