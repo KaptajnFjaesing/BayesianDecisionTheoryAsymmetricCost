@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  28 OCT 2024 20:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  28 OCT 2024 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -391,14 +391,18 @@ e-quen-tial decision-
 [1
 
 {C:/Users/roman/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-[3] (chapters/app_deriv.tex [4] [5]) (chapters/app_deriv2.tex [6])
-(document.bbl) [7] (document.aux)
+[3] (chapters/app_deriv.tex
+Overfull \hbox (1.09387pt too wide) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/17.28 Minimization of Ex-pected Cost: First Cost
+ []
+
+[4] [5]) (chapters/app_deriv2.tex [6]) (document.bbl) [7] (document.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
  ***********
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: ED3021E59C3007A9892988751CC17DA0;400.
+(rerunfilecheck)             Checksum: 22F486DA81D90B0924D5FC5B3AA27EF1;633.
  ) 
 Here is how much of TeX's memory you used:
  10228 strings out of 474370
@@ -426,7 +430,7 @@ msfonts/cm/cmsy10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/roman/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (7 pages, 209418 bytes).
+Output written on document.pdf (7 pages, 210243 bytes).
 PDF statistics:
  181 PDF objects out of 1000 (max. 8388607)
  46 named destinations out of 1000 (max. 500000)
