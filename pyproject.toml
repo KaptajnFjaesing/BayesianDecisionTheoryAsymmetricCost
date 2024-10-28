@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "BayesianDecisionTheoryAsymmetricCost"
+version = "0.0.1"
+description = ""
+authors = ["Jonas Petersen"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "3.11.8"
+numpy = "^1.26.4"
+pandas = "^2.2.1"
+spyder-kernels = "2.5"
+matplotlib = "^3.8.3"
+tqdm = "^4.66.2"
+
+
+[tool.poetry.group.dev.dependencies]
+build = "^1.2.2"
+setuptools = "^75.1.0"
+wheel = "^0.44.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
