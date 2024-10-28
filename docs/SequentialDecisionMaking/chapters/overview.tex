@@ -1,0 +1,75 @@
+
+\section{Introduction}
+This study explores Bayesian decision theory within a sequential decision-making framework, focusing on deriving optimal decision rules from asymmetric cost functions. Bayesian decision theory provides a probabilistic approach for making decisions under uncertainty, allowing decision-makers to account for varying costs associated with different outcomes. By incorporating asymmetric cost functions, this approach enables a more nuanced treatment of decision costs, which is crucial in fields requiring precise risk management where different actions may lead to consequences with diverse cost implications.
+
+To illustrate these concepts, consider a specific setting in which decision-making unfolds as an interactive game between two entities: Nature, which represents the randomness in the environment, and a Robot, which operates as a decision-maker tasked with managing a finite stock of units over time. At each time iteration $t$, the Robot makes decisions based on its action space $\Omega_U$, while Nature selects outcomes from its action space $\Omega_S$. For example, if the Robot begins with an initial stock of $N_0$ units, each time step involves a certain number of units being removed by Nature ($s_t \in \Omega_S$), while the Robot has the option to reorder stock, subject to an unspecified lead time.
+
+This stock management scenario serves as an example of sequential decision-making under uncertainty, where costs are associated with both overstocking (when $N > 0$) and understocking (when $N < 0$), which influence the Robot's decisions in each iteration. To support its decision-making, the Robot is provided with historical data $D$, containing records of past unit removals and relevant features for demand forecasting. The stock level at time $t$ is given by  
+\begin{equation}
+	N_t \equiv N_0 + \sum_{t'=1}^{t} (U_{t'-L} - s_{t'}),
+\end{equation}
+and the Robot's decisions are informed by a probabilistic forecast based on $D$ in the form  
+\begin{equation}
+	p(s_1, s_2, \dots | D, I),
+	\label{eq:prob_forecast}
+\end{equation}
+where $I$ denotes any additional background information~\citep{Sivia2006}. In order to construct the asymmetric cost functions considered in this study, the swish function
+\begin{equation}
+	\text{swish}(N_t,\beta) = \frac{N_t}{1+e^{-N_t\beta}},
+\end{equation}
+with $\beta\gg 1 $, is used as a continuous imitation of Relu, meaning
+\begin{equation}
+	\text{swish}(\pm N_t,\beta) \simeq N_t^{(\pm)},
+\end{equation}
+such that
+\begin{equation}
+	N_t^{(\pm)}\subset C(u,s).
+\end{equation}
+Given the observations $D$, the Robot's objective is to formulate a set of decision rules, $\xi\equiv \{U_0(D),U_1(D),\dots\}$ with  $U_j(D)=u_j$, that minimize the expected cost associated with its decisions
+\begin{equation}
+	\xi^*\equiv \argmin_{\xi}(\mathbb{E}[C|D,I]),
+\end{equation}
+where $C$ is the cost infinitely far into the future. In this study, the cost will be assumed to be discounted, meaning
+\begin{equation}
+	C = \sum_{t=1}^{\infty}\gamma^{t}C_t
+\end{equation}
+where $C_t \equiv C(U_t(D),s_t)$ and $\gamma\in [0,1]$. The optimal decisions are then defined by
+\begin{equation}
+\frac{d}{dU_m}\mathbb{E}[C|D,I]\bigg|_{U_m = U_m^*} \overset{!}{=} 0\quad \forall m.
+\label{eq:min_exp_cost}
+\end{equation}
+
+\begin{example}
+	The cost function
+	\begin{equation}
+		C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}N_{t}^{(-)})
+	\end{equation}
+	where $k^\text{sc}$ and $k^\text{uv}$ represent the "storage cost" and the "unit value" (lost value if under stocking), leads to the decision rules (see appendix \ref{app:deriva})
+	\begin{equation}
+		p(N_t^*\geq 0|D,I)=\frac{k_{t}^\text{uv}}{k_{t}^\text{uv}+k^\text{sc}_{t}}
+		\label{eq:crit1}
+	\end{equation}
+	with
+	\begin{equation}
+		N_t^*\equiv N_0+\sum_{t'=1}^{t}(U_{t'-L}^*-s_{t'}).
+	\end{equation}
+\end{example}
+
+
+\begin{example}
+	The cost function
+	\begin{equation}
+		C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}s_{t}N_{t}^{(-)})
+	\end{equation}
+	yielding the decision rule (see appendix \ref{app:deriv})
+	\begin{equation}
+		\frac{p(N_t\geq 0|D,I)}{\mathbb{E}[s_t|D,I]-\mathbb{E}[s_t|N_{t}\geq 0,D,I]}=\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}}.
+		\label{eq:crit2}
+	\end{equation}
+\end{example}
+
+
+
+
+
+

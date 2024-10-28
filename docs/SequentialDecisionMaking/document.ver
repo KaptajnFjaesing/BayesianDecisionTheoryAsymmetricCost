@@ -1,0 +1,14 @@
+\begin {longtable}{@{}ll>{\hsize =\vhAuthorColWidth }X>{\hsize =\vhChangeColWidth }X@{}}
+\textbf {\vhversionname }
+ & \textbf {\vhdatename }
+ & \textbf {\vhauthorname }
+ & \textbf {\vhchangename }\\[1ex]
+0.0.1
+ & 04-10-2024
+ & \listset {JP}
+ & Created\\
+0.0.2
+ & 09-10-2024
+ & \listset {JP}
+ & Updated with first draft of decision theory\\
+\end {longtable}

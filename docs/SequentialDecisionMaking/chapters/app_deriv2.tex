@@ -1,0 +1,21 @@
+\section{Minimization of Expected Cost}
+\label{app:deriv}
+With the cost function
+\begin{equation}
+	C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}N_{t}^{(-)})
+\end{equation}
+the derivation proceeds analogously to that of appendix \ref{app:deriva}, resulting again in the criterion $\psi_j=0$, however, now with
+\begin{equation}
+	\psi_t\equiv k^\text{sc}_{t}p(N_t\geq 0|D,I)+k_{t}^\text{uv}(\mathbb{E}[s_t|N_{t}\geq 0,D,I]-\mathbb{E}[s_t|D,I]),
+\end{equation} 
+and
+\begin{equation}
+	\begin{split}
+		\sum_{s_1,s_2,\dots}s_{t}1_{N_{t}\geq 0}p(s_1,s_{2},\dots|D,I)&=\mathbb{E}[s_t|N_{t}\geq 0,D,I],\\
+		\sum_{s_1,s_2,\dots}s_{t}p(s_1,s_{2},\dots|D,I)&=\mathbb{E}[s_t|D,I].\\
+	\end{split}
+\end{equation}
+The resulting optimal decision rules are
+\begin{equation}
+	\frac{p(N_t^*\geq 0|D,I)}{\mathbb{E}[s_t|D,I]-\mathbb{E}[s_t|N_t^*\geq 0,D,I]}=\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}}.
+\end{equation}

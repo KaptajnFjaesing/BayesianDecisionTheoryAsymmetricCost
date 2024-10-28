@@ -1,0 +1,100 @@
+\section{Minimization of Expected Cost}
+\label{app:deriva}
+Define the cost function viz
+\begin{equation}
+	C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}N_{t}^{(-)}),
+\end{equation}
+where $k^\text{sc}$ and $k^\text{uv}$ represent the "storage cost" and the "unit value". To determine the decision rules, $\xi^*$, that minimize the expected cost $\mathbb{E}[C|D,I]$, the derivative of the cost function with respect to $\xi$ is needed
+\begin{equation}
+		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma^{t}\bigg(k^\text{sc}_{t}\frac{dN_{t}^{(+)}}{dU_m}+k_{t}^\text{uv}\frac{dN_{t}^{(-)}}{dU_m}\bigg)
+	\label{eq:deriv_1ab}
+\end{equation}
+where
+\begin{equation}
+	\begin{split}
+		\frac{dN_{t}^{(+)}}{dU_m}& =\sum_q 	\frac{dN_{t}^{(+)}}{dN_q}\frac{dN_q}{dU_m}\\
+		& \simeq\sum_q 	1_{N_{t}\geq 0}\delta_{t,q}\frac{dN_q}{dU_m}\\
+		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\frac{dU_{t'-L}}{dU_m}\\
+		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\delta_{t'-L,m},\\
+		\frac{dN_{t}^{(-)}}{dU_m} &\simeq (1_{N_t\geq 0}-1)\sum_{t'=1}^t\delta_{t'-L,m},
+		\label{eq:deriv_2ab}
+	\end{split}
+\end{equation}
+and it has been used that
+\begin{equation}
+	\begin{split}
+		\frac{dN_t^{(+)}}{dN_t} & =\frac{\beta N_te^{-\beta N_t}}{(1+e^{-\beta N_t})^2}+\frac{1}{1+e^{-\beta N_t}}\\
+		& \simeq \frac{1}{1+e^{-\beta N_t}}\\
+		&= \sigma(\beta N_t)\\
+		&\simeq 1_{N_{t}\geq 0},\\
+		\frac{dN_t^{(-)}}{dN_t} & = \frac{\beta N_te^{\beta N_t}}{(1+e^{\beta N_t})^2}-\frac{1}{1+e^{\beta N_t}}\\
+		& \simeq -\frac{1}{1+e^{\beta N_t}}\\
+		&= \sigma(\beta N_t)-1\\
+		& \simeq  1_{N_{t}\geq 0}-1.
+	\end{split}
+\end{equation}
+Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
+\begin{equation}
+	\begin{split}
+		\frac{dC}{dU_m} \simeq \sum_{t=1}^{\infty}\gamma^{t}\bigg(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
+	\end{split}
+\end{equation}
+For some generic function $g_t$
+\begin{equation}
+	\begin{split}
+		\sum_{t=1}^{\infty}g_t\sum_{t'=1}^t\delta_{t'-L,m} & = g_1\delta_{1-L,m}+g_2(\delta_{1-L,m}+\delta_{2-L,m})+\dots\\
+		&=\sum_{t=L+m}^\infty g_t
+	\end{split}
+\end{equation}
+meaning
+\begin{equation}
+	\frac{dC}{dU_m} \simeq \sum_{t=L+m}^{\infty}\gamma^{t}(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1)).
+	\label{eq:deriv_3a}
+\end{equation}
+Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
+\begin{equation}
+	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma^{t}(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
+\end{equation}
+The sums can be evaluated viz
+\begin{equation}
+	\begin{split}
+		\sum_{s_1,s_2,\dots}1_{N_{t}\geq 0}p(s_1,s_{2},\dots|D,I) &= p\bigg(\sum_{t'=1}^{t}s_{t'}\leq N_0+\sum_{t'=1}^{t}U_{t'-L}|D,I\bigg)\\
+		&= p(N_t\geq 0|D,I),\\
+		\sum_{s_1,s_2,\dots}p(s_1,s_{2},\dots|D,I)&=1.\\
+	\end{split}
+\end{equation}
+Let
+\begin{equation}
+	\psi_t\equiv (k^\text{sc}_{t}+k_{t}^\text{uv})p(N_t\geq 0|D,I)-k_{t}^\text{uv},
+\end{equation} 
+then
+\begin{equation}
+	\begin{split}
+		\frac{d}{dU_m}\mathbb{E}[C|D,I]& = \sum_{t=L+m}^{\infty}\gamma^{t}\psi_t\\
+		&\overset{!}{=} 0\quad \forall m
+	\end{split}
+\end{equation}
+A recursion relation can be derived viz
+\begin{equation}
+	\begin{split}
+		\frac{d}{dU_0}\mathbb{E}[C|D,I] & = \sum_{t=L}^{\infty}\gamma^{t}\psi_t\\
+		& =\gamma^{L}\psi_L+\sum_{t=L+1}^{\infty}\gamma^{t}\psi_t\\
+		& =\gamma^{L}\psi_L+\frac{d}{dU_1}\mathbb{E}[C|D,I]\\
+		& =\gamma^{L}\psi_L+\gamma^{L+1}\psi_{L+1}+\frac{d}{dU_2}\mathbb{E}[C|D,I]\\
+		&=\dots\\
+		&\overset{!}{=} 0
+	\end{split} 
+\end{equation}
+Since all derivatives are required to be simultaneously zero,
+\begin{equation}
+	\gamma^{j}\psi_j\overset{!}{=} 0\quad \forall j \Rightarrow \psi_j=0
+\end{equation}
+meaning
+\begin{equation}
+	p(N_t^*\geq 0|D,I)=\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}},
+\end{equation}
+where
+\begin{equation}
+	N_t^*\equiv N_0+\sum_{t'=1}^{t}(U_{t'-L}^*-s_{t'})
+\end{equation}
+denote the units on stock given optimal decisions.

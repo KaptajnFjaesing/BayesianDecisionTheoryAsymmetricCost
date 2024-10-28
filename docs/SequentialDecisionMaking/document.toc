@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\thispagestyle {plain}
+\contentsline {section}{Appendix \numberline {A}Minimization of Expected Cost}{3}{appendix.a.A}%
+\contentsline {section}{Appendix \numberline {B}Minimization of Expected Cost}{5}{appendix.a.B}%
