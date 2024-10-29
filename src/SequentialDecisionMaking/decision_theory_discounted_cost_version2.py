@@ -17,7 +17,7 @@ def swish(x, b):
 def cost_function(U, forecasts, k_sc, k_uv, N0, gamma):
     b = 50
     Nt = N0 + np.cumsum(U)-np.cumsum(forecasts, axis=1)
-    return np.dot(swish(Nt,b)*k_sc+swish(-Nt,b)*forecasts*k_uv,gamma)
+    return np.dot(swish(Nt,b)*k_sc+swish(-Nt,b)*k_uv,gamma)
 
 def expected_cost(U, forecasts, k_sc, k_uv, N0, gamma):
     return np.mean(cost_function(
