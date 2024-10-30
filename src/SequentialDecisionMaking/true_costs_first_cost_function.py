@@ -4,11 +4,6 @@ Created on Tue Oct 29 21:36:15 2024
 @author: Jonas Petersen
 """
 
-"""
-Created on Tue Oct 29 20:42:38 2024
-
-@author: Jonas Petersen
-"""
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -69,7 +64,7 @@ for iteration in range(1000):
     criterion = k_uv/(k_uv+k_sc)
     for t in range(lead_time, forecast_horizon+1):
         N_t = forecasts[:,:t].sum(axis = 1) - decisions_by_hand[:t-1].sum()
-        decisions_by_hand[t-1] = max(round(np.percentile(N_t, 100*criterion))-N0, 0)
+        decisions_by_hand[t-1] = max(round(np.quantile(N_t, criterion))-N0, 0)
     N_by_hand = N0+np.cumsum(decisions_by_hand)-np.cumsum(true_time_series[-forecast_horizon:])
     
     actual_costs_by_hand.append(actual_costs(N_by_hand, k_sc, k_uv, b))

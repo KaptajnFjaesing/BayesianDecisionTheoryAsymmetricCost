@@ -13,24 +13,11 @@ where
 \begin{equation}
 	\begin{split}
 		\frac{dN_{t}^{(+)}}{dU_m}& =\sum_q 	\frac{dN_{t}^{(+)}}{dN_q}\frac{dN_q}{dU_m}\\
-		& \simeq\sum_q 	1_{N_{t}\geq 0}\delta_{t,q}\frac{dN_q}{dU_m}\\
+		& =\sum_q 	1_{N_{t}\geq 0}\delta_{t,q}\frac{dN_q}{dU_m}\\
 		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\frac{dU_{t'-L}}{dU_m}\\
 		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\delta_{t'-L,m},\\
-		\frac{dN_{t}^{(-)}}{dU_m} &\simeq (1_{N_t\geq 0}-1)\sum_{t'=1}^t\delta_{t'-L,m},
+		\frac{dN_{t}^{(-)}}{dU_m} &= (1_{N_t\geq 0}-1)\sum_{t'=1}^t\delta_{t'-L,m}.
 		\label{eq:deriv_2ab}
-	\end{split}
-\end{equation}
-and it has been used that
-\begin{equation}
-	\begin{split}
-		\frac{dN_t^{(+)}}{dN_t} & =\frac{\beta N_te^{-\beta N_t}}{(1+e^{-\beta N_t})^2}+\frac{1}{1+e^{-\beta N_t}}\\
-		& \simeq \frac{1}{1+e^{-\beta N_t}}\\
-		&= \sigma(\beta N_t)\\
-		&\simeq 1_{N_{t}\geq 0},\\
-		\frac{dN_t^{(-)}}{dN_t} & = \frac{\beta N_te^{\beta N_t}}{(1+e^{\beta N_t})^2}-\frac{1}{1+e^{\beta N_t}}\\
-		& \simeq -\frac{1}{1+e^{\beta N_t}}\\
-		&= \sigma(\beta N_t)-1\\
-		& \simeq  1_{N_{t}\geq 0}-1.
 	\end{split}
 \end{equation}
 Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
@@ -92,9 +79,14 @@ Since all derivatives are required to be simultaneously zero,
 meaning
 \begin{equation}
 	p(N_t^*\geq 0|D,I)=\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}},
+	\label{decision_rules}
 \end{equation}
 where
 \begin{equation}
 	N_t^*\equiv N_0+\sum_{t'=1}^{t}(U_{t'-L}^*-s_{t'})
 \end{equation}
-denote the units on stock given optimal decisions.
+denote the units on stock given optimal decisions. From equation \eqref{decision_rules} the optimal decisions can be determined viz
+\begin{equation}
+	\sum_{t'=1}^{t}U_{t'-L}^* = \max\bigg(\operatorname{round}\bigg(Q_{100\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}}}\bigg(\sum_{t'=1}^{t}s_{t'}-N_0\bigg)\bigg),0\bigg),
+\end{equation}
+where $Q_q(X)$ is the $q$-quantile for the random variable $X$.

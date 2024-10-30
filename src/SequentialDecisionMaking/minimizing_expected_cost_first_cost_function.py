@@ -55,9 +55,9 @@ plt.plot(training_dates,training_data, label = "Training Data")
 plt.plot(forecast_dates,true_time_series[-forecast_horizon:], label = "Test Data")
 plt.plot(forecast_dates,median_forecasts, label = "Forecast")
 
-# Calculate the 10th and 90th percentiles for uncertainty
-lower_bound = np.percentile(forecasts, 10, axis=0)
-upper_bound = np.percentile(forecasts, 90, axis=0)
+# Calculate the 0.1 and 0.9 quantile for uncertainty
+lower_bound = np.quantile(forecasts, 0.1, axis=0)
+upper_bound = np.quantile(forecasts, 0.9, axis=0)
 
 # Fill between the lower and upper bounds to indicate uncertainty
 plt.fill_between(forecast_dates, lower_bound, upper_bound, color='green', alpha=0.2, label='Uncertainty Interval (10th-90th Percentile)')
@@ -101,7 +101,7 @@ decisions_by_hand = np.zeros(forecast_horizon)
 criterion = k_uv/(k_uv+k_sc)
 for t in range(lead_time, forecast_horizon+1):
     N_t = forecasts[:,:t].sum(axis = 1) - decisions_by_hand[:t-1].sum()
-    decisions_by_hand[t-1] = max(round(np.percentile(N_t, 100*criterion))-N0, 0)
+    decisions_by_hand[t-1] = max(round(np.quantile(N_t, criterion))-N0, 0)
 toc = time.time()
 EX_by_hand = expected_cost(decisions_by_hand, forecasts, k_sc, k_uv, N0, gamma)
 print("Expected cost by hand: ", EX_by_hand, "; computation time", round(toc-tic,4))
