@@ -1,14 +1,68 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Alumur(2012)]{Alumur2012}
+et~al. Alumur, S.~A.
+\newblock Optimizing inventory and transportation decisions in supply chain
+  management.
+\newblock \emph{European Journal of Operational Research}, 216\penalty0
+  (3):\penalty0 705--716, 2012.
+
+\bibitem[Gürler(2014)]{Gurler2014}
+et~al. Gürler, Ü.
+\newblock Inventory and transportation optimization in supply chains.
+\newblock \emph{Journal of Supply Chain Management}, 50\penalty0 (1):\penalty0
+  34--42, 2014.
+
+\bibitem[Higginson and Bookbinder(1994)]{HigginsonBookbinder1994}
+J.~Higginson and J.~H. Bookbinder.
+\newblock The transport-inventory problem.
+\newblock \emph{Journal of Operational Research Society}, 45:\penalty0
+  969--978, 1994.
+
+\bibitem[Lavalle(2006)]{lavalle2006}
+I.~Lavalle.
+\newblock \emph{Fundamentals of Decision Theory}.
+\newblock Cambridge University Press, Cambridge, UK, 2nd edition, 2006.
+
 \bibitem[Sivia and Skilling(2006)]{Sivia2006}
 D.~S. Sivia and J.~Skilling.
 \newblock \emph{{Data Analysis - A Bayesian Tutorial}}.
 \newblock Oxford Science Publications. Oxford University Press, 2nd edition,
   2006.
+
+\bibitem[Wei(2020)]{Wei2020}
+et~al. Wei, Y.
+\newblock Hybrid shipment policies for inventory management.
+\newblock \emph{Journal of Supply Chain Management}, 56:\penalty0 123--134,
+  2020.
+
+\bibitem[Çetinkaya(2005)]{Cetinkaya2005}
+S.~Çetinkaya.
+\newblock Consolidation policies in inventory management.
+\newblock \emph{Production and Operations Management}, 14\penalty0
+  (2):\penalty0 233--243, 2005.
+
+\bibitem[Çetinkaya and Bookbinder(2003)]{CetinkayaBookbinder2003}
+S.~Çetinkaya and J.~H. Bookbinder.
+\newblock Optimal integrated policies for managing inventory and outbound
+  shipments.
+\newblock \emph{Transportation Science}, 37:\penalty0 39--55, 2003.
+
+\bibitem[Çetinkaya and Lee(2000)]{CetinkayaLee2000}
+S.~Çetinkaya and C.-Y. Lee.
+\newblock Stock replenishment and shipment scheduling for vendor-managed
+  inventory systems.
+\newblock \emph{Management Science}, 46\penalty0 (2):\penalty0 217--232, 2000.
+\newblock \doi{10.1287/mnsc.46.2.217.11925}.
+
+\bibitem[Çetinkaya and Lee(2006)]{Cetinkaya2006}
+S.~Çetinkaya and C.-Y. Lee.
+\newblock Inventory and transportation cost coordination in vmi systems.
+\newblock \emph{Operations Research}, 54:\penalty0 123--137, 2006.
 
 \end{thebibliography}

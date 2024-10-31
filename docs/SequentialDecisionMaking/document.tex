@@ -14,6 +14,7 @@
 
 \theoremstyle{definition}
 \newtheorem{exinn}{Example}
+\newtheorem{theorem}{Theorem}
 
 \newenvironment{example}
 {\clubpenalty=10000
@@ -24,74 +25,91 @@
 	{\par\kern2ex\hrule\end{exinn}}
 
 
-\title{Sequential Decision-Making for Stock Management}
-\author{Jonas Petersen}
+\title{Sequential Decision-Making for Inventory Control using Bayesian Decision Theory}
+\author{Jonas Petersen \\ Ander Runge Walther }
 \date{\today}
 
 \begin{document}
 	\maketitle
 	
 	\begin{abstract}
-		This study explores Bayesian decision theory within a sequential decision-making framework, focusing on deriving optimal decision rules from an asymmetric cost functions representing stock management.
+		Inventory control is a core aspect of supply chain management, balancing customer demand fulfillment against the costs of holding and ordering inventory. This paper addresses inventory management through the lens of Bayesian decision theory, enabling probabilistic decision-making under uncertainty. By establishing a framework for sequential decision-making over an infinite time horizon, an optimal solution tailored to a specific asymmetric cost function is derived, offering insights for practical implementations in inventory management.
 	\end{abstract}
 	
-	% Main Content
-	\noindent
-	Bayesian decision theory provides a probabilistic approach for making decisions under uncertainty, allowing decision-makers to account for varying costs associated with different outcomes. By incorporating asymmetric cost functions, this approach enables a more nuanced treatment of decision costs, which is crucial in fields requiring precise risk management where different actions may lead to consequences with diverse cost implications.
-
-	This study explores Bayesian decision theory within a sequential decision-making framework, focusing on deriving optimal decision rules from asymmetric cost functions. Bayesian decision theory provides a probabilistic approach for making decisions under uncertainty, allowing decision-makers to account for varying costs associated with different outcomes. By incorporating asymmetric cost functions, this approach enables a more nuanced treatment of decision costs, which is crucial in fields requiring precise risk management where different actions may lead to consequences with diverse cost implications.
+	\section{Introduction}
+	Inventory management is a critical component of supply chain management that involves overseeing the ordering, storage, and use of a company's inventory, including raw materials, components, and finished goods. Effective inventory control ensures that a company has adequate stock to meet demand while minimizing costs associated with holding inventory. In practice, this often requires a balance between minimizing stockouts, which disrupt service levels, and limiting overstocking, which incurs unnecessary holding costs.
 	
-	To illustrate these concepts, consider a specific setting in which decision-making unfolds as an interactive game between two entities: Nature, which represents the randomness in the environment, and a Robot, which operates as a decision-maker tasked with managing a finite stock of units over time. At each time iteration $t$, the Robot makes decisions based on its action space $\Omega_U$, while Nature selects outcomes from its action space $\Omega_S$. For example, if the Robot begins with an initial stock of $N_0$ units, each time step involves a certain number of units being removed by Nature ($s_t \in \Omega_S$), while the Robot has the option to reorder stock, subject to an unspecified lead time.
+	The coordination of inventory and transportation decisions has gained significant attention over recent decades, driven by the need for specific practices like vendor-managed inventory (VMI), third-party logistics (3PL), and time-definite delivery (TDD) (see, e.g., \citep{CetinkayaLee2000, Alumur2012, Gurler2014}). These programs aim to optimize the balance between inventory holding costs and transportation costs. Traditional inventory models often assume immediate delivery to meet demand, yet this can be inefficient due to the fixed costs of transportation, prompting companies to adopt shipment consolidation policies that merge smaller demands into larger, less frequent shipments \citep{CetinkayaBookbinder2003, HigginsonBookbinder1994}.
 	
-	This stock management scenario serves as an example of sequential decision-making under uncertainty, where costs are associated with both overstocking (when $N > 0$) and under stocking (when $N < 0$), which influence the Robot's decisions in each iteration. To support its decision-making, the Robot is provided with historical data $D$, containing records of past unit removals and relevant features for demand forecasting. The stock level at time $t$ is given by  
+	Three commonly implemented shipment consolidation policies—quantity-based, time-based, and hybrid—are particularly useful in improving cost efficiency by regulating shipment size or timing. Each policy type has distinct impacts on performance metrics, such as delay penalties, average inventory, and annual costs, guiding companies toward designing more efficient inventory-transportation systems \citep{Cetinkaya2005, Wei2020, Cetinkaya2006}.
+	
+	While these approaches provide valuable frameworks, they do not explicitly account for the uncertainties inherent in demand fluctuations or the associated asymmetric costs of overstocking and understocking. In settings where inventory decisions must be made sequentially, uncertainty can be more effectively managed through Bayesian decision theory, which offers a probabilistic approach to decision-making under uncertainty. This framework allows for more refined, sequential adjustments to inventory based on demand forecasting, which dynamically incorporates new data over time.
+	
+	In this study, Bayesian decision theory is utilized to address a sequential inventory control problem. Specifically, an optimal decision-making framework is derived based on a discounted asymmetric cost function, considering the impact of decisions made infinitely far into the future. Our model involves a decision-maker (henceforth referred to as the Robot) who manages stock levels over time in an interactive environment shaped by a random demand process. Through this setup, a mathematically rigorous and computationally feasible solution for optimal inventory decisions that account for uncertainty and asymmetric costs is derived.
+	
+	\section{Sequential Decision-Making Framework}
+	To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot makes decisions at each time step, interacting with an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. At each iteration $t$, the Robot decides on an action from its action space $\Omega_U$, while Nature removes a certain number of units from stock, denoted $s_t \in \Omega_S$. The goal is to manage the stock optimally, balancing the costs of overstocking ($N > 0$) and understocking ($N < 0$), given that each action taken has a probabilistic effect on the Robot’s objectives.
+	
+	The Robot’s decisions are based on historical data $D$, which contains past stock removals and other relevant demand features. Given an initial stock $N_0$, the stock level at time $t$ evolves according to
 	\begin{equation}
 		N_t \equiv N_0 + \sum_{t'=1}^{t} (U_{t'-L} - s_{t'}),
 	\end{equation}
-	and the Robot's decisions are informed by a probabilistic forecast based on $D$ in the form  
+	where $U_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$. To support probabilistic decision-making, the Robot uses a forecast based on $D$ in the form
 	\begin{equation}
 		p(s_1, s_2, \dots | D, I),
-		\label{eq:prob_forecast}
 	\end{equation}
-	where $I$ denotes any additional background information~\citep{Sivia2006}. In order to construct the asymmetric cost functions considered in this study, the relu function
+	where $I$ denotes any additional background information~\citep{Sivia2006}. This probabilistic forecast, combined with the Robot's asymmetric cost function, guides the sequence of decisions over time.
+	
+	\section{Formulation of the Cost Function and Optimal Decision Rule}
+	An asymmetric cost function reflecting the penalties associated with understocking and overstocking is constructed using the ReLU (rectified linear unit) function,
 	\begin{equation}
-		\begin{split}
-			\text{relu}(\pm N_t) &= \max(\pm N_t,0)\\
-			&\equiv N_t^{(\pm)}
-		\end{split},
+		\text{relu}(\pm N_t) = \max(\pm N_t, 0),
 	\end{equation}
-	is used, such that
+	to define the positive and negative inventory levels, $N_t^{(+)}$ and $N_t^{(-)}$, respectively. The Robot’s objective is to formulate a sequence of decision rules $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
 	\begin{equation}
-		N_t^{(\pm)}\subset C(u,s).
+		\xi^* = \arg \min_{\xi} \mathbb{E}[C | D, I],
 	\end{equation}
-	Given data, $D$, the Robot's objective is to formulate a set of decision rules, $\xi\equiv \{U_0(D),U_1(D),\dots\}$ with  $U_j(D)=u_j$, that minimize the expected cost associated with its decisions
+	where the cost $C$ is assumed to be discounted viz
 	\begin{equation}
-		\xi^*\equiv \argmin_{\xi}(\mathbb{E}[C|D,I]),
+		C = \sum_{t=1}^{\infty} \gamma^{t} \left( h_t N_t^{(+)} + c_t N_{t}^{(-)} \right),
+		\label{eq:cost}
 	\end{equation}
-	where $C$ is the cost infinitely far into the future. In this study, the cost will be assumed to be discounted, meaning
+	where $\gamma \in [0,1]$ is a discount factor, and $h$ and $c$ represent storage (holding) and understocking costs, respectively. The optimal decisions satisfy the first-order condition
 	\begin{equation}
-		C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}N_{t}^{(-)})
-	\end{equation}
-	where $\gamma\in [0,1]$ and $k^\text{sc}$ and $k^\text{uv}$ represent the "storage cost" and the "unit value" (lost value if under stocking). The optimal decisions are then defined by
-	\begin{equation}
-		\frac{d}{dU_m}\mathbb{E}[C|D,I]\bigg|_{U_m = U_m^*} \overset{!}{=} 0\quad \forall m
+		\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} \overset{!}{=} 0 \quad \forall m,
 		\label{eq:min_exp_cost}
 	\end{equation}
-	which leads to the decision rules (see appendix \ref{app:deriva})
+	which leads to the optimal decision criterion (see Appendix~\ref{app:deriva} for a detailed derivation).
+	
+	\begin{theorem}[Optimal Decision Rule for Inventory Control]
+		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal decision rule for the Robot at each time step $t$ is defined by
+		\begin{equation}
+			p(N_t^* \geq 0 | D, I) = \frac{c_t}{c_t + h_t},
+		\end{equation}
+		where
+		\begin{equation}
+			N_t^* = N_0 + \sum_{t'=1}^{t} (U_{t'-L}^* - s_{t'}).
+		\end{equation}
+	\end{theorem}
+	
+	This criterion implies that the optimal decisions correspond to the quantile threshold
 	\begin{equation}
-		p(N_t^*\geq 0|D,I)=\frac{k_{t}^\text{uv}}{k_{t}^\text{uv}+k^\text{sc}_{t}}
-		\label{eq:crit1}
+		\sum_{t'=1}^{t} U_{t'-L}^* = Q_{\frac{c_t}{c_t+h_t}} \left( \sum_{t'=1}^{t} s_{t'} - N_0 \right),
 	\end{equation}
-	with
-	\begin{equation}
-		N_t^*\equiv N_0+\sum_{t'=1}^{t}(U_{t'-L}^*-s_{t'}).
-	\end{equation}
-	From equation \eqref{eq:crit1} the optimal decisions can be determined viz
-	\begin{equation}
-		\sum_{t'=1}^{t}U_{t'-L}^* = Q_{100\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}}}\bigg(\sum_{t'=1}^{t}s_{t'}-N_0\bigg),
-	\end{equation}
-	where $Q_q(X)$ is the $q$-quantile for the random variable $X$.
-
-
+	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. This result provides an actionable rule for the Robot’s decision-making based on the balance of costs associated with stock levels.
+	
+	\section{Numerical Example}
+	\begin{enumerate}
+		\item \href{https://www.academia.edu/27965536/Inventorycontroltextbook_140429044831_phpapp02_1_}{S. Axsäter. Inventory control}
+		\href{https://proceedings.mlr.press/v151/kan22a/kan22a.pdf}{Gasthaus paper}
+		\item \href{https://arxiv.org/pdf/2012.02392}{inspiration for introduction}
+		\item \href{https://arxiv.org/pdf/2310.17168}{probabilistic trucks}
+		\item \href{https://arxiv.org/pdf/2310.16096}{Amazon paper} (inspiration)
+	\end{enumerate}
+	
+	
+	\section{Conclusion}
+	The derived decision rule offers a structured approach to managing inventory in a stochastic environment using Bayesian decision theory. The probabilistic framework accounts for demand uncertainty, guiding optimal actions based on expected costs. This work contributes to the field of inventory management by presenting an analytically derived solution, supporting practical applications in real-world inventory systems.
 	
 	\newpage
 	\begin{appendices}

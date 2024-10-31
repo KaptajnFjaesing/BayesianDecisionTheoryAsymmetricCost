@@ -2,11 +2,11 @@
 \label{app:deriva}
 Define the cost function viz
 \begin{equation}
-	C = \sum_{t=1}^{\infty}\gamma^{t}(k^\text{sc}_{t}N_{t}^{(+)}+k_{t}^\text{uv}N_{t}^{(-)}),
+	C = \sum_{t=1}^{\infty}\gamma^{t}(h_tN_t^{(+)}+c_tN_t^{(-)}),
 \end{equation}
 where $k^\text{sc}$ and $k^\text{uv}$ represent the "storage cost" and the "unit value". To determine the decision rules, $\xi^*$, that minimize the expected cost $\mathbb{E}[C|D,I]$, the derivative of the cost function with respect to $\xi$ is needed
 \begin{equation}
-		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma^{t}\bigg(k^\text{sc}_{t}\frac{dN_{t}^{(+)}}{dU_m}+k_{t}^\text{uv}\frac{dN_{t}^{(-)}}{dU_m}\bigg)
+		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma^{t}\bigg(h_t\frac{dN_{t}^{(+)}}{dU_m}+c_t\frac{dN_{t}^{(-)}}{dU_m}\bigg)
 	\label{eq:deriv_1ab}
 \end{equation}
 where
@@ -23,7 +23,7 @@ where
 Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
 \begin{equation}
 	\begin{split}
-		\frac{dC}{dU_m} \simeq \sum_{t=1}^{\infty}\gamma^{t}\bigg(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
+		\frac{dC}{dU_m} \simeq \sum_{t=1}^{\infty}\gamma^{t}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
 	\end{split}
 \end{equation}
 For some generic function $g_t$
@@ -35,12 +35,12 @@ For some generic function $g_t$
 \end{equation}
 meaning
 \begin{equation}
-	\frac{dC}{dU_m} \simeq \sum_{t=L+m}^{\infty}\gamma^{t}(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1)).
+	\frac{dC}{dU_m} \simeq \sum_{t=L+m}^{\infty}\gamma^{t}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
 	\label{eq:deriv_3a}
 \end{equation}
 Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
 \begin{equation}
-	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma^{t}(k^\text{sc}_{t}1_{N_{t}\geq 0}+k_{t}^\text{uv}(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
+	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma^{t}(h_t1_{N_{t}\geq 0}+c_t(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
 \end{equation}
 The sums can be evaluated viz
 \begin{equation}
@@ -52,7 +52,7 @@ The sums can be evaluated viz
 \end{equation}
 Let
 \begin{equation}
-	\psi_t\equiv (k^\text{sc}_{t}+k_{t}^\text{uv})p(N_t\geq 0|D,I)-k_{t}^\text{uv},
+	\psi_t\equiv (h_t+c_t)p(N_t\geq 0|D,I)-c_t,
 \end{equation} 
 then
 \begin{equation}
@@ -78,7 +78,7 @@ Since all derivatives are required to be simultaneously zero,
 \end{equation}
 meaning
 \begin{equation}
-	p(N_t^*\geq 0|D,I)=\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}},
+	p(N_t^*\geq 0|D,I)=\frac{c_t}{c_t+h_t},
 	\label{decision_rules}
 \end{equation}
 where
@@ -87,6 +87,6 @@ where
 \end{equation}
 denote the units on stock given optimal decisions. From equation \eqref{decision_rules} the optimal decisions can be determined viz
 \begin{equation}
-	\sum_{t'=1}^{t}U_{t'-L}^* = \max\bigg(\operatorname{round}\bigg(Q_{100\frac{k_{t}^\text{uv}}{k^\text{sc}_{t}+k_{t}^\text{uv}}}\bigg(\sum_{t'=1}^{t}s_{t'}-N_0\bigg)\bigg),0\bigg),
+	\sum_{t'=1}^{t}U_{t'-L}^* = \max\bigg(\operatorname{round}\bigg(Q_{\frac{c_t}{c_t+h_t}}\bigg(\sum_{t'=1}^{t}s_{t'}-N_0\bigg)\bigg),0\bigg),
 \end{equation}
 where $Q_q(X)$ is the $q$-quantile for the random variable $X$.
