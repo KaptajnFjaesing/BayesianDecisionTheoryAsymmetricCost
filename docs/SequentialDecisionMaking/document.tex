@@ -63,7 +63,10 @@
 	\section{Formulation of the Cost Function and Optimal Decision Rule}
 	An asymmetric cost function reflecting the penalties associated with understocking and overstocking is constructed using the ReLU (rectified linear unit) function,
 	\begin{equation}
-		\text{relu}(\pm N_t) = \max(\pm N_t, 0),
+		\begin{split}
+			\text{relu}(\pm N_t) &= \max(\pm N_t, 0)\\
+			&\equiv N_t^{(\pm)}
+		\end{split}
 	\end{equation}
 	to define the positive and negative inventory levels, $N_t^{(+)}$ and $N_t^{(-)}$, respectively. The Robot’s objective is to formulate a sequence of decision rules $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
 	\begin{equation}
@@ -98,7 +101,7 @@
 	\end{equation}
 	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. This result provides an actionable rule for the Robot’s decision-making based on the balance of costs associated with stock levels.
 	
-	\section{Numerical Example}
+	\section{Practical Implementation}
 	\begin{enumerate}
 		\item \href{https://www.academia.edu/27965536/Inventorycontroltextbook_140429044831_phpapp02_1_}{S. Axsäter. Inventory control}
 		\item \href{https://proceedings.mlr.press/v151/kan22a/kan22a.pdf}{Gasthaus paper}
@@ -110,6 +113,12 @@
 	
 	\section{Conclusion}
 	The derived decision rule offers a structured approach to managing inventory in a stochastic environment using Bayesian decision theory. The probabilistic framework accounts for demand uncertainty, guiding optimal actions based on expected costs. This work contributes to the field of inventory management by presenting an analytically derived solution, supporting practical applications in real-world inventory systems.
+	
+	\begin{enumerate}
+		\item A few words on the intuitive interpretation of the cost function? The number of units overstocked multiplied with the cost of overstocking per unit. The number of units understocked multiplied with the value of each unit. The latter represents the lost value.
+		\item Mention the benefit of the analytical solution; the computation speed relative to a numerical optimization is highly beneficial at scale.
+		
+	\end{enumerate}
 	
 	\newpage
 	\begin{appendices}
