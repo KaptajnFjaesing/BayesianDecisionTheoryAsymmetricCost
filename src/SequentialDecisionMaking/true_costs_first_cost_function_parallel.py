@@ -32,7 +32,18 @@ def generate_data(lambda_true, time_Series_length, forecast_horizon, number_of_s
     return training_data, forecasts_model[:,:forecast_horizon], true_time_series
 
 # Define a function for a single calculation to enable parallel processing
-def calculate_costs(unit_val, holding_cost, criterion, lead_time, forecast_horizon, N0, ensemble_size):
+def calculate_costs(
+    unit_val,
+    holding_cost,
+    criterion,
+    lead_time,
+    forecast_horizon,
+    N0,
+    lambda_true,
+    time_Series_length,
+    number_of_samples,
+    ensemble_size
+    ):
     actual_costs_baseline = []
     actual_costs_by_hand = []
     

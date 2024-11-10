@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{article}
+
 \usepackage{amsmath}  % For equations
 \usepackage{amsfonts} % For mathematical symbols
 \usepackage{graphicx} % For figures
@@ -12,18 +13,14 @@
 \usepackage{amsthm}
 \usepackage{xcolor}
 
-\theoremstyle{definition}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
 \newtheorem{exinn}{Example}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
 
-\newenvironment{example}
-{\clubpenalty=10000
-	\begin{exinn}%
-		\mbox{}%
-		{\color{black}\leaders\hrule height .8ex depth \dimexpr-.8ex+0.8pt\relax\hfill}%
-		\mbox{}\linebreak\ignorespaces}
-	{\par\kern2ex\hrule\end{exinn}}
 
 
 \title{Sequential Decision-Making for Inventory Control using Bayesian Decision Theory}
@@ -64,7 +61,7 @@
 	\end{equation}
 	where $I$ denotes any additional background information~\citep{Sivia2006}. This probabilistic forecast, combined with the Robot's asymmetric cost function, guides the sequence of decisions over time.
 	
-	\section{Formulation of the Cost Function and Optimal Decision Rule}
+	\section{Formulation of the Cost Function and Optimal Policy}
 	The Robot’s objective is to formulate a sequence of decision rules, called a policy, $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
 	\begin{equation}
 		\xi^* = \arg \min_{\xi} \mathbb{E}[C | D, I],
@@ -79,9 +76,10 @@
 		\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} \overset{!}{=} 0 \quad \forall m,
 		\label{eq:min_exp_cost}
 	\end{equation}
-	which leads to the optimal decision criterion (see Appendix~\ref{app:deriva} for a detailed derivation).
+	which leads to the optimal decision criterion (see Appendix~\ref{app:deriva} for derivation).
 	
 	\begin{theorem}[Optimal Policy Rule for Inventory Control]
+		\label{theorem:opt_policy}
 		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal policy for the Robot at each time step $t$ is defined by
 		\begin{equation}
 			p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
@@ -92,17 +90,17 @@
 		\end{equation}
 	\end{theorem}
 	
-	This criterion implies that the optimal decisions correspond to the quantile threshold
+	Theorem \ref{theorem:opt_policy} implies that the optimal decisions are related to quantiles of $\zeta_t$ viz
 	\begin{equation}
 		\upsilon_t^* = Q_{\frac{c_t}{c_t+h_t}}\zeta_t-N_0,
 		\label{eq:opt}
 	\end{equation}
-	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. This result provides an actionable rule for the Robot’s decision-making based on the balance of costs associated with stock levels.
+	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. 
 	
-	\section{Cost Efficiency Ratio}
-	In order to illustrate implementation and the order of magnitude effect from using the optimal decision rule, consider the ratio
+	\section{Policy Efficiency Ratio}
+	In order to gauge the effect of using the optimal policy, the associated expected cost is compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
 	\begin{equation}
-		\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]},
+		\text{PER}\equiv \frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]},
 	\end{equation}
 	where $C^*$ is the cost function with the optimal policy and $C'$ is the baseline policy defined viz
 	
@@ -110,48 +108,36 @@
 		The baseline policy consists of ordering the expected value $\mathbb{E}[s_t|D,I]$ if $N_t<\mathbb{E}[s_t|D,I]$.
 	\end{definition}
 	
-	The baseline policy represents an (R,Q) policy with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming $p(\zeta_t|D,I)$ follow a Poisson distribution, the CER can be approximated (see appendix \ref{app:cer})
+	The baseline policy represents an (R,Q) policy~\citep{bartmann1992inventory,axsaeter2006inventory} with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution and ii) $k_t=k,c_t=c$ are constant, the PER can be approximated (see appendix \ref{app:cer} for derivation) viz
 	\begin{equation}
-		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}
+		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}.
+		\label{eq:per}
 	\end{equation}
-	
-	
-	
+	Equation \eqref{eq:per} provides a rule of thumb to gauge the expected cost reduction by using the optimal policy (equation \eqref{eq:opt}) over a conventional approach. In typical industrial settings $c\gg h$ and so the expected reduction in cost will be modest, however, possibly still significant depending on the scale and elements included in the cost model. Figure \ref{fig:heatmap_analytical} show the PER (equation \eqref{eq:per}) plotted as a function of $h,c$.
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=\textwidth]{figures/analytical_heatmap.pdf}
-		\caption{Heatmap of Cost Improvements}
+		\caption{Heatmap of the analytical policy efficiency ratio (equation \eqref{eq:per}).}
 		\label{fig:heatmap_analytical}
 	\end{figure}
 	
 	
+	\subsection{Example: Numerical Policy Efficiency Ratio}
+	To provide an example of implementation (see source code on Github) and test equation \eqref{eq:per} on an anecdotal level, consider the case where $N_0=37$, $L =6$ and $U_j\in \mathbb{Z}$, $0\leq U_j\leq 0$ for any time step. Data are mocked from a Poisson distribution with rate parameter $\lambda =3$. $300$ random samples are drawn to represent a mock time series, with the last $52$ reserved as test data and the remaining as training data. Based on the training data, the $\lambda$ is estimated using MLE and based on a Poisson distribution with this estimated rate parameter, a forecast of dimensions (number\_of\_samples, forecast\_horizon), with number\_of\_samples=$5\,000$ and forecast\_horizon=$52$, is drawn. The optimal and baseline policies applied to yield decision over the forecast horizon. Using these decisions, the actual costs are computed using the test data. This is done $5\,000$ times to yield an estimate of the PER for a particular $h,c$. This process is repeated for $c\in \mathbb{Z}$, $1\leq c\leq 100$ and $h\in \mathbb{Z}$, $1\leq c\leq 20$, yielding the PERs shown in figure \ref{fig:heatmap_numerical}. Figure \ref{fig:heatmap_numerical} clearly show the same pattern as figure \ref{fig:heatmap_analytical}, however, with slight differences (as expected for an approximation); i) the maximum slightly exceeds $1$ and ii) the minimum significantly deviates from $0$. The former is likely due to random fluctuations from approximating the expected cost from $5\, 000$ samples. Increasing the sample size gradually brings the maximum closer to $1$. 
 	
-	For the numerical example, consider $k_t=k,c_t=c$ for a range of constant (over time) values $k,c$.
+	========= TO THIS POINT ==========
+	{\color{red} The latter? Is it an artefact, or due to numerical limitations? In the upper limit inaccuracy seems to be $\sim 0.04$. In the lower limit we have $\sim 0.2$...}
 	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=\textwidth]{figures/numerical_heatmap.pdf}
-		\caption{Heatmap of Cost Improvements}
-		\label{fig:heatmap}
-	\end{figure}
-	
-	From the figure it is clear that
-	
-	\begin{equation}
-		\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]}\bigg|_{\frac{h_t}{c_t} = \text{const}, h_t\neq 0}\sim \text{const},
-	\end{equation}
 
-	this means for any $h_t\neq 0$, $\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]}$ can be analyzed as a function of $c_t$ in a general scope. {\color{red} Does it mean the fraction is a function of $h/c$ ?}
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=\textwidth]{figures/analytical_heatmap.pdf}
 		\includegraphics[width=\textwidth]{figures/numerical_heatmap.pdf}
-		\caption{Heatmap of Cost Improvements}
+		\caption{Heatmap of the numerical policy efficiency ratio calculated via simulation.}
+		\label{fig:heatmap_numerical}
 	\end{figure}
 	
-	=================
-	
+
 
 	
 	\section{Conclusion}

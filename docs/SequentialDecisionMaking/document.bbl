@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,6 +11,12 @@ et~al. Alumur, S.~A.
   management.
 \newblock \emph{European Journal of Operational Research}, 216\penalty0
   (3):\penalty0 705--716, 2012.
+
+\bibitem[Axsater(2006)]{axsaeter2006inventory}
+Sven Axsater.
+\newblock \emph{Inventory Control}.
+\newblock Springer, New York, 2006.
+\newblock ISBN 9780387243096.
 
 \bibitem[Bartmann and Beckmann(1992)]{bartmann1992inventory}
 Dieter Bartmann and Martin~J. Beckmann.
