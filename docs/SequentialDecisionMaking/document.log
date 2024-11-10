@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  10 NOV 2024 20:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  10 NOV 2024 21:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -458,12 +458,8 @@ s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.145 	
-        <./figures/numerical_heatmap.pdf>] [7] (chapters/app_deriv.tex
-Overfull \hbox (1.09387pt too wide) in paragraph at lines 1--1
-[]\OT1/cmr/bx/n/17.28 Minimization of Ex-pected Cost: First Cost
- []
-
-[8]) (chapters/app_expected_cost.tex [9] [10]
+        <./figures/numerical_heatmap.pdf>] [7] (chapters/app_deriv.tex [8])
+(chapters/app_expected_cost.tex [9] [10]
 Overfull \hbox (6.62218pt too wide) detected at line 48
 []
  []
@@ -473,8 +469,15 @@ Overfull \hbox (6.62218pt too wide) detected at line 48
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
  ***********
-Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: DFA16F9623547F517094C8E8A22CE915;2276.
+
+
+Package rerunfilecheck Warning: File `document.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `document.out':
+(rerunfilecheck)             Before: 07E32EC871FEE3236FE98412DE4E069F;2172
+(rerunfilecheck)             After:  B7CC158A681E6280EBA15E8D6571A369;2240.
  ) 
 Here is how much of TeX's memory you used:
  11041 strings out of 474370
@@ -502,7 +505,7 @@ msfonts/cm/cmsy10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/roman/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (14 pages, 366773 bytes).
+Output written on document.pdf (14 pages, 366712 bytes).
 PDF statistics:
  457 PDF objects out of 1000 (max. 8388607)
  102 named destinations out of 1000 (max. 500000)
