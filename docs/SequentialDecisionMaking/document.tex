@@ -15,6 +15,7 @@
 \theoremstyle{definition}
 \newtheorem{exinn}{Example}
 \newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
 
 \newenvironment{example}
 {\clubpenalty=10000
@@ -52,58 +53,106 @@
 	
 	The Robot’s decisions are based on historical data $D$, which contains past stock removals and other relevant demand features. Given an initial stock $N_0$, the stock level at time $t$ evolves according to
 	\begin{equation}
-		N_t \equiv N_0 + \sum_{t'=1}^{t} (U_{t'-L} - s_{t'}),
+		\begin{split}
+			N_t &\equiv N_0 + \sum_{t'=1}^{t} (U_{t'-L} - s_{t'})\\
+			& = N_0+\upsilon_t-\zeta_t
+		\end{split},
 	\end{equation}
-	where $U_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$. To support probabilistic decision-making, the Robot uses a forecast based on $D$ in the form
+	where $U_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$ and $\zeta_t\equiv \sum_{t'=1}^ts_{t'}$ and $\upsilon_t\equiv \sum_{t'=1}^tU_{t'-L}$. To support probabilistic decision-making, the Robot uses a forecast based on $D$ in the form
 	\begin{equation}
 		p(s_1, s_2, \dots | D, I),
 	\end{equation}
 	where $I$ denotes any additional background information~\citep{Sivia2006}. This probabilistic forecast, combined with the Robot's asymmetric cost function, guides the sequence of decisions over time.
 	
 	\section{Formulation of the Cost Function and Optimal Decision Rule}
-	An asymmetric cost function reflecting the penalties associated with understocking and overstocking is constructed using the ReLU (rectified linear unit) function,
-	\begin{equation}
-		\begin{split}
-			\text{relu}(\pm N_t) &= \max(\pm N_t, 0)\\
-			&\equiv N_t^{(\pm)}
-		\end{split}
-	\end{equation}
-	to define the positive and negative inventory levels, $N_t^{(+)}$ and $N_t^{(-)}$, respectively. The Robot’s objective is to formulate a sequence of decision rules $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
+	The Robot’s objective is to formulate a sequence of decision rules, called a policy, $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
 	\begin{equation}
 		\xi^* = \arg \min_{\xi} \mathbb{E}[C | D, I],
 	\end{equation}
 	where the cost $C$ is assumed to be discounted viz
 	\begin{equation}
-		C = \sum_{t=1}^{\infty} \gamma^{t} \left( h_t N_t^{(+)} + c_t N_{t}^{(-)} \right),
+		C = \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)N_t,
 		\label{eq:cost}
 	\end{equation}
-	where $\gamma \in [0,1]$ is a discount factor, and $h$ and $c$ represent storage (holding) and understocking costs, respectively. The optimal decisions satisfy the first-order condition
+	where $\gamma_{\text{disc}} \in [0,1]$ is a discount factor, and $h$ and $c$ represent storage (holding) and understocking costs, respectively. The optimal decisions satisfy the first-order condition
 	\begin{equation}
 		\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} \overset{!}{=} 0 \quad \forall m,
 		\label{eq:min_exp_cost}
 	\end{equation}
 	which leads to the optimal decision criterion (see Appendix~\ref{app:deriva} for a detailed derivation).
 	
-	\begin{theorem}[Optimal Decision Rule for Inventory Control]
-		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal decision rule for the Robot at each time step $t$ is defined by
+	\begin{theorem}[Optimal Policy Rule for Inventory Control]
+		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal policy for the Robot at each time step $t$ is defined by
 		\begin{equation}
-			p(N_t^* \geq 0 | D, I) = \frac{c_t}{c_t + h_t},
+			p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
 		\end{equation}
 		where
 		\begin{equation}
-			N_t^* = N_0 + \sum_{t'=1}^{t} (U_{t'-L}^* - s_{t'}).
+			N_t^* = N_0 +\upsilon_t^*-\zeta_t.
 		\end{equation}
 	\end{theorem}
 	
 	This criterion implies that the optimal decisions correspond to the quantile threshold
 	\begin{equation}
-		\sum_{t'=1}^{t} U_{t'-L}^* = Q_{\frac{c_t}{c_t+h_t}} \left( \sum_{t'=1}^{t} s_{t'} - N_0 \right),
+		\upsilon_t^* = Q_{\frac{c_t}{c_t+h_t}}\zeta_t-N_0,
+		\label{eq:opt}
 	\end{equation}
 	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. This result provides an actionable rule for the Robot’s decision-making based on the balance of costs associated with stock levels.
 	
-	\section{Practical Implementation}
+	\section{Cost Efficiency Ratio}
+	In order to illustrate implementation and the order of magnitude effect from using the optimal decision rule, consider the ratio
+	\begin{equation}
+		\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]},
+	\end{equation}
+	where $C^*$ is the cost function with the optimal policy and $C'$ is the baseline policy defined viz
+	
+	\begin{definition}[baseline policy]
+		The baseline policy consists of ordering the expected value $\mathbb{E}[s_t|D,I]$ if $N_t<\mathbb{E}[s_t|D,I]$.
+	\end{definition}
+	
+	The baseline policy represents an (R,Q) policy with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming $p(\zeta_t|D,I)$ follow a Poisson distribution, the CER can be approximated (see appendix \ref{app:cer})
+	\begin{equation}
+		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}
+	\end{equation}
 	
 	
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=\textwidth]{figures/analytical_heatmap.pdf}
+		\caption{Heatmap of Cost Improvements}
+		\label{fig:heatmap_analytical}
+	\end{figure}
+	
+	
+	
+	For the numerical example, consider $k_t=k,c_t=c$ for a range of constant (over time) values $k,c$.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=\textwidth]{figures/numerical_heatmap.pdf}
+		\caption{Heatmap of Cost Improvements}
+		\label{fig:heatmap}
+	\end{figure}
+	
+	From the figure it is clear that
+	
+	\begin{equation}
+		\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]}\bigg|_{\frac{h_t}{c_t} = \text{const}, h_t\neq 0}\sim \text{const},
+	\end{equation}
+
+	this means for any $h_t\neq 0$, $\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]}$ can be analyzed as a function of $c_t$ in a general scope. {\color{red} Does it mean the fraction is a function of $h/c$ ?}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=\textwidth]{figures/analytical_heatmap.pdf}
+		\includegraphics[width=\textwidth]{figures/numerical_heatmap.pdf}
+		\caption{Heatmap of Cost Improvements}
+	\end{figure}
+	
+	=================
+	
+
 	
 	\section{Conclusion}
 	The derived decision rule offers a structured approach to managing inventory in a stochastic environment using Bayesian decision theory. The probabilistic framework accounts for demand uncertainty, guiding optimal actions based on expected costs. This work contributes to the field of inventory management by presenting an analytically derived solution, supporting practical applications in real-world inventory systems.
@@ -112,7 +161,11 @@
 		\item A few words on the intuitive interpretation of the cost function? The number of units overstocked multiplied with the cost of overstocking per unit. The number of units understocked multiplied with the value of each unit. The latter represents the lost value.
 		\item Mention the benefit of the analytical solution; the computation speed relative to a numerical optimization is highly beneficial at scale.
 		\item Compress the recursive relation to $m$-notation. 
+		\item The baseline policy is an (R,Q) policy with $R =0$ and $Q = \mathbb{E}[s_t|D,I]$.
+		\item Is our result in any of the inventory control books?
+		\item will the relationship between baseline and optimal policy depend on forecasting method? I would say yes. How do we handle this?
 		
+		\item if there is around the same cost for over/under stocking, there is a $30-40\%$ reduction in costs with the optimal policy compared to the baseline. In the limit of $c\gg h$, the reduction in cost approach $0\%$ and the gains are minor. This is the relevant limit in most cases, where the value of the unit significantly outweigh the holding cost. This is relevant, however, it is underlined, that the baseline policy is always equal or worse (statistically, meaning the expected cost is always lower. Expected cost is over a distribution. draws from that distribution can fall either way) than the optimal policy. 
 	\end{enumerate}
 	
 	\begin{enumerate}
@@ -126,6 +179,8 @@
 	\newpage
 	\begin{appendices}
 		\input{chapters/app_deriv.tex}
+		\input{chapters/app_expected_cost.tex}
+		\input{chapters/app_poisson.tex}
 	\end{appendices}
 	
 	

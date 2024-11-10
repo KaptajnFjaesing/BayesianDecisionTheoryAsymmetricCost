@@ -1,0 +1,118 @@
+\section{Cost Efficiency Ratio}
+\label{app:cer}
+The expected cost
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C|D,I] &= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)N_tp(\zeta_t| D, I)\\
+		&= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t} \left( (h_t+c_t) 1_{N_t> 0} - c_t  \right)(N_0 + \upsilon_t-\zeta_t)p(\zeta_t| D, I)\\
+		&= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t} \bigg( 
+		(h_t+c_t)(N_0 + \upsilon_t)1_{N_t> 0}\\
+		&\qquad\qquad\qquad\quad-(h_t+c_t) 1_{N_t> 0}\zeta_t
+		- c_t(N_0 + \upsilon_t)+c_t\zeta_t\bigg)p(\zeta_t| D, I)
+	\end{split}
+\end{equation}
+the relevant terms
+\begin{equation}
+	\begin{split}
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I) & = \sum_{\zeta_t=0}^{N_0+\upsilon_t} p(\zeta_t| D, I)\\
+		&= \frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)},\\
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}\zeta_tp(\zeta_t| D, I) & = \sum_{\zeta_t=0}^{N_0+\upsilon_t} \zeta_t p(\zeta_t| D, I)\\
+		& = \lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)},\\
+		\sum_{\zeta_t=0}^\infty\zeta_tp(\zeta_t| D, I) & = \lambda_t,\\
+		\sum_{\zeta_t=0}^\infty p(\zeta_t| D, I) & = 1.\\
+	\end{split}
+\end{equation}
+the gamma functions are unpacked by using 
+\begin{equation}
+	\frac{\Gamma(x,y)}{\Gamma(x)}\approx \frac{1}{1+e^{-m(x-y)}}
+\end{equation}
+with $m\sim 0.2$ depending on the scale of $y$. This means
+\begin{equation}
+	\begin{split}
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I) & \approx \frac{1}{1+e^{-m_t(N_0+\upsilon_t+1-\lambda_t)}}\\
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}\zeta_tp(\zeta_t| D, I) & \approx \lambda_t\frac{1}{1+e^{-m_t(N_0+\upsilon_t-\lambda_t)}}\\
+	\end{split}
+\end{equation}
+This means
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C|D,I] &\approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
+		(h_t+c_t)(N_0 + \upsilon_t)\frac{1}{1+e^{-m_t(N_0+\upsilon_t+1-\lambda_t)}}\\
+		&\qquad\qquad\qquad\quad-(h_t+c_t) \lambda_t\frac{1}{1+e^{-m_t(N_0+\upsilon_t-\lambda_t)}}
+		- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
+		&\approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
+		(h_t+c_t)\bigg[\frac{N_0 + \upsilon_t}{1+e^{-m_t(N_0+\upsilon_t+1-\lambda_t)}}- \frac{\lambda_t}{1+e^{-m_t(N_0+\upsilon_t-\lambda_t)}}\bigg]\\
+		&\qquad\qquad\qquad
+		- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
+	\end{split}
+\end{equation}
+
+\subsection{Optimal Expected Cost}
+
+\begin{equation}
+	\frac{c_t}{c_t+h_t}\approx\frac{1}{1+e^{-m_t(N_0+\upsilon_t+1-\lambda_t)}}\\
+\end{equation}
+
+\begin{equation}
+	\frac{c_t}{h_t}\approx e^{m_t(N_0+\upsilon_t+1-\lambda_t)}\\
+\end{equation}
+
+\begin{equation}
+	\upsilon_t\approx \lambda_t-N_0-1+\frac{1}{m_t}\ln\frac{c_t}{h_t} 
+\end{equation}
+
+This means
+
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C^*|D,I] &\approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
+		\bigg[(N_0 + \upsilon_t)c_t- \lambda_tc_t\frac{c_t+h_t}{c_t+e^{m_t}h_t}
+		\bigg]- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
+		&= \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_tc_th_t\frac{e^{m_t}-1}{e^{m_t}h_t+c_t}\\
+	\end{split}
+\end{equation}
+
+\subsection{Baseline Expected Cost}
+
+\begin{equation}
+	\upsilon_t= \lambda_t+\epsilon_t-N_0
+\end{equation}
+where $\epsilon_t\leq \lambda_t$
+
+This means
+
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C'|D,I] &\approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
+		(h_t+c_t)\bigg[\frac{N_0 + \upsilon_t}{1+e^{-m_t(\epsilon_t+1)}}- \frac{\lambda_t}{1+e^{-m_t\epsilon_t}}\bigg]\\
+		&\qquad\qquad\qquad
+		- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
+	\end{split}
+\end{equation}
+
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C'|D,I] \approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} h_t\epsilon_t
+	\end{split}
+\end{equation}
+
+
+\subsection{Cost Ratio}
+
+\begin{equation}
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_tc_th_t\frac{e^{m_t}-1}{e^{m_t}h_t+c_t}}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} h_t\epsilon_t}
+\end{equation}
+$h_t,c_t\simeq \text{const}$
+\begin{equation}
+		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{e^{m_t}-1}{e^{m_t}\frac{h}{c}+1}\frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \epsilon_t}
+\end{equation}
+Since $\mathbb{E}[C^*|D,I]$ is the minimum expected cost at all times, the ratio must be smaller or equal to $1$, meaning
+
+\begin{equation}
+	(e^{m}-1)\frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \epsilon_t}=1
+\end{equation}
+Assuming $\lambda_t\sim \epsilon_t$ for simplicity, then $m_t\sim \ln(2)$. This means
+\begin{equation}
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}
+\end{equation}
+

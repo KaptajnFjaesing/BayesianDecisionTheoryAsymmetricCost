@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  31 OCT 2024 19:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  10 NOV 2024 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,47 +314,48 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
 \c@exinn=\count291
 \c@theorem=\count292
+\c@definition=\count293
 
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2024-04-11 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count293
+\l__color_backend_stack_int=\count294
 \l__pdf_internal_box=\box53
 ) (document.aux)
 \openout1 = `document.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count294
+\scratchcounter=\count295
 \scratchdimen=\dimen156
 \scratchbox=\box54
-\nofMPsegments=\count295
-\nofMParguments=\count296
+\nofMPsegments=\count296
+\nofMParguments=\count297
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count297
+\MPscratchCnt=\count298
 \MPscratchDim=\dimen157
-\MPnumerator=\count298
-\makeMPintoPDFobject=\count299
+\MPnumerator=\count299
+\makeMPintoPDFobject=\count300
 \everyMPtoPDFconversion=\toks30
 )
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -367,18 +368,18 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 32.
+Package hyperref Info: Link coloring OFF on input line 33.
  (document.out) (document.out)
 \@outlinefile=\write3
 \openout3 = `document.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
 
 
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
 
 
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -387,27 +388,72 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 {C:/Users/roman/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
-[3] [4] [5] (chapters/app_deriv.tex
+[3]
+<figures/analytical_heatmap.pdf, id=114, 722.7pt x 578.16pt>
+File: figures/analytical_heatmap.pdf Graphic file (type pdf)
+<use figures/analytical_heatmap.pdf>
+Package pdftex.def Info: figures/analytical_heatmap.pdf  used on input line 122
+.
+(pdftex.def)             Requested size: 390.0pt x 311.99884pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/numerical_heatmap.pdf, id=115, 722.7pt x 578.16pt>
+File: figures/numerical_heatmap.pdf Graphic file (type pdf)
+<use figures/numerical_heatmap.pdf>
+Package pdftex.def Info: figures/numerical_heatmap.pdf  used on input line 133.
+
+(pdftex.def)             Requested size: 390.0pt x 311.99884pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4]
+File: figures/analytical_heatmap.pdf Graphic file (type pdf)
+<use figures/analytical_heatmap.pdf>
+Package pdftex.def Info: figures/analytical_heatmap.pdf  used on input line 148
+.
+(pdftex.def)             Requested size: 390.0pt x 311.99884pt.
+File: figures/numerical_heatmap.pdf Graphic file (type pdf)
+<use figures/numerical_heatmap.pdf>
+Package pdftex.def Info: figures/numerical_heatmap.pdf  used on input line 149.
+
+(pdftex.def)             Requested size: 390.0pt x 311.99884pt.
+
+
+LaTeX Warning: Float too large for page by 59.831pt on input line 151.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./figures/analytical_heatmap.pdf>] [6 <./figures/numerical_heatmap.pdf>]
+[7] (chapters/app_deriv.tex
 Overfull \hbox (1.09387pt too wide) in paragraph at lines 1--1
 []\OT1/cmr/bx/n/17.28 Minimization of Ex-pected Cost: First Cost
  []
 
-[6] [7]) (document.bbl [8]) [9] (document.aux)
+[8]) (chapters/app_expected_cost.tex [9] [10]
+Overfull \hbox (6.62218pt too wide) detected at line 48
+[]
+ []
+
+[11]) (chapters/app_poisson.tex [12]) (document.bbl [13]) [14] [15]
+(document.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
  ***********
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: B634F7772D512806025C766BBD76B99E;1262.
+(rerunfilecheck)             Checksum: 098AF300F1FFB000E090DAC8DFEDA81B;2024.
  ) 
 Here is how much of TeX's memory you used:
- 10279 strings out of 474370
- 158872 string characters out of 5740536
- 1939754 words of memory out of 5000000
- 32495 multiletter control sequences out of 15000+600000
- 567480 words of font info for 72 fonts, out of 8000000 for 9000
+ 10373 strings out of 474370
+ 160971 string characters out of 5740536
+ 1941754 words of memory out of 5000000
+ 32540 multiletter control sequences out of 15000+600000
+ 567787 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,19n,79p,791b,575s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,19n,79p,791b,602s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -426,9 +472,9 @@ msfonts/cm/cmsy10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/roman/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (9 pages, 234588 bytes).
+Output written on document.pdf (15 pages, 348699 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 60 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 439 PDF objects out of 1000 (max. 8388607)
+ 103 named destinations out of 1000 (max. 500000)
+ 99 words of extra memory for PDF output out of 10000 (max. 10000000)
 

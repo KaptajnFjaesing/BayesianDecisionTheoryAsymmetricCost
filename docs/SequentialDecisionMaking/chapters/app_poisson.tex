@@ -1,0 +1,26 @@
+\section{Poisson Distribution}
+
+\begin{equation}
+	p(\zeta\leq k|\lambda) = e^{-\lambda}\sum_{j=0}^k\frac{\lambda^j}{j!}
+\end{equation}
+
+\begin{equation}
+	\Gamma(s,x) = (s-1)!e^{-x}\sum_{j=0}^{s-1}\frac{\lambda^j}{j!}
+\end{equation}
+\begin{equation}
+	\Gamma(s)= (s-1)!
+\end{equation}
+hence
+\begin{equation}
+	p(x\leq s|\lambda)=\frac{\Gamma(s+1,x)}{\Gamma(s+1)}
+\end{equation}
+
+Similarly
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[\zeta|\zeta\leq k,\lambda] &= e^{-\lambda}\sum_{j=0}^kj\frac{\lambda^j}{j!}\\
+		& = e^{-\lambda}\sum_{j=0}^{k}\frac{\lambda^{j}}{(j-1)!}\\
+		& = \lambda e^{-\lambda}\sum_{j=0}^{k-1}\frac{\lambda^{j}}{j!}\\
+		& =\lambda \frac{\Gamma(s,x)}{\Gamma(s)}
+	\end{split}
+\end{equation}
