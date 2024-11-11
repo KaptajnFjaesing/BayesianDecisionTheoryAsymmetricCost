@@ -83,6 +83,7 @@
 		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal policy for the Robot at each time step $t$ is defined by
 		\begin{equation}
 			p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
+			\label{eq:t1}
 		\end{equation}
 		where
 		\begin{equation}
@@ -90,15 +91,29 @@
 		\end{equation}
 	\end{theorem}
 	
-	Theorem \ref{theorem:opt_policy} implies that the optimal decisions are related to quantiles of $\zeta_t$ viz
+	
+	\section{Optimal Policy under Conditional Independence}
+	Equation \eqref{eq:t1} can be written
+	\begin{equation}
+		\begin{split}
+			p(N_t^* > 0 | D, I) &= \sum_{s_1,\dots s_t}1_{N_{t}\geq 0}p(s_1,\dots s_t|D,I)\sum_{s_{t+1},\dots}p(s_{t+1},\dots|s_1,\dots s_t,D,I)\\
+			& = \sum_{\zeta_t=0}^{N_0+\Upsilon_t}p(\zeta_t|D,I)\sum_{s_{t+1},\dots}p(s_{t+1},\dots|\zeta_t,D,I)\\
+		\end{split}
+	\end{equation}
+	Assuming conditional independence $p(s_{t+1},\dots|\zeta_t,D,I)=p(s_{t+1},\dots|D,I)$
+	\begin{equation}
+			p(N_t^* > 0 | D, I)  = \sum_{\zeta_t=0}^{N_0+\upsilon_t}p(\zeta_t|D,I).
+			\label{eq:indep}
+	\end{equation}
+	Combining eqation \eqref{eq:indep} with theorem \ref{theorem:opt_policy} implies that the optimal policy is related to quantiles of $\zeta_t$ viz
 	\begin{equation}
 		\upsilon_t^* = Q_{\frac{c_t}{c_t+h_t}}\zeta_t-N_0,
 		\label{eq:opt}
 	\end{equation}
 	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. 
 	
-	\section{Policy Efficiency Ratio}
-	In order to gauge the effect of using the optimal policy, the associated expected cost is compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
+	\subsection{Policy Efficiency Ratio}
+	In order to gauge the effect of using the optimal policy (equation \eqref{eq:opt}), the associated expected cost is compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
 	\begin{equation}
 		\text{PER}\equiv \frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]},
 	\end{equation}
@@ -122,7 +137,7 @@
 	\end{figure}
 	
 	
-	\subsection{Example: Numerical Policy Efficiency Ratio}
+	\subsubsection{Example: Numerical Policy Efficiency Ratio}
 	To provide an example of implementation (see source code on Github) and test equation \eqref{eq:per} on an anecdotal level, consider the case where $N_0=37$, $L =6$ and $U_j\in \mathbb{Z}$, $0\leq U_j\leq 0$ for any time step. Data are mocked from a Poisson distribution with rate parameter $\lambda =3$. $300$ random samples are drawn to represent a mock time series, with the last $52$ reserved as test data and the remaining as training data. Based on the training data, the $\lambda$ is estimated using MLE and based on a Poisson distribution with this estimated rate parameter, a forecast of dimensions (number\_of\_samples, forecast\_horizon), with number\_of\_samples=$5\,000$ and forecast\_horizon=$52$, is drawn. The optimal and baseline policies applied to yield decision over the forecast horizon. Using these decisions, the actual costs are computed using the test data. This is done $5\,000$ times to yield an estimate of the PER for a particular $h,c$. This process is repeated for $c\in \mathbb{Z}$, $1\leq c\leq 100$ and $h\in \mathbb{Z}$, $1\leq c\leq 20$, yielding the PERs shown in figure \ref{fig:heatmap_numerical}. Figure \ref{fig:heatmap_numerical} clearly show the same pattern as figure \ref{fig:heatmap_analytical}, however, with slight differences (as expected for an approximation); i) the maximum slightly exceeds $1$ and ii) the minimum significantly deviates from $0$. The former is likely due to random fluctuations from approximating the expected cost from $5\, 000$ samples. Increasing the sample size gradually brings the maximum closer to $1$. 
 	
 	========= TO THIS POINT ==========

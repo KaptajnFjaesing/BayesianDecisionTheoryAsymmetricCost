@@ -16,7 +16,7 @@ where
 Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
 \begin{equation}
 	\begin{split}
-		\frac{dC}{dU_m} \simeq \sum_{t=1}^{\infty}\gamma_{\text{disc}}^{t}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
+		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma_{\text{disc}}^{t}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
 	\end{split}
 \end{equation}
 For some generic function $g_t$
@@ -28,7 +28,7 @@ For some generic function $g_t$
 \end{equation}
 meaning
 \begin{equation}
-	\frac{dC}{dU_m} \simeq \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
+	\frac{dC}{dU_m} = \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
 	\label{eq:deriv_3a}
 \end{equation}
 Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
@@ -38,8 +38,7 @@ Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
 The sums can be evaluated viz
 \begin{equation}
 	\begin{split}
-		\sum_{s_1,s_2,\dots}1_{N_{t}\geq 0}p(s_1,s_{2},\dots|D,I) &= \sum_{\tau_t=0}^{N_0+\Upsilon_t}p(\tau_t|D,I)\\
-		&= p(N_t\geq 0|D,I),\\
+		\sum_{s_1,s_2,\dots}1_{N_{t}\geq 0}p(s_1,s_{2},\dots|D,I) &= p(N_t\geq 0|D,I),\\
 		\sum_{s_1,s_2,\dots}p(s_1,s_{2},\dots|D,I)&=1.\\
 	\end{split}
 \end{equation}
@@ -82,8 +81,4 @@ where
 \begin{equation}
 	N_t^*\equiv N_0+\upsilon_t^*-\zeta_t
 \end{equation}
-denote the units on stock given optimal decisions. From equation \eqref{decision_rules} the optimal decisions can be determined viz
-\begin{equation}
-	\upsilon_t^* = Q_{\frac{c_t}{c_t+h_t}}\zeta_t-N_0,
-\end{equation}
-where $Q_q(X)$ is the $q$-quantile for the random variable $X$.
+denote the units on stock given optimal decisions.

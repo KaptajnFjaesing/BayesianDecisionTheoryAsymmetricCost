@@ -29,7 +29,7 @@ def generate_data(lambda_true, time_Series_length, forecast_horizon, number_of_s
     true_time_series = np.random.poisson(lambda_true, time_Series_length)
     training_data = true_time_series[:-forecast_horizon]
     forecasts_model = np.random.poisson(np.mean(training_data), (number_of_samples,forecast_horizon))
-    return training_data, forecasts_model[:,:forecast_horizon], true_time_series
+    return training_data, forecasts_model, true_time_series
 
 # Define a function for a single calculation to enable parallel processing
 def calculate_costs(
