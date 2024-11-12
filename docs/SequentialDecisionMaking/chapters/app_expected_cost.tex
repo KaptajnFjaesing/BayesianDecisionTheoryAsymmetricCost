@@ -61,34 +61,23 @@ This means
 \begin{equation}
 	\begin{split}
 		\mathbb{E}[C^*|D,I] &\simeq \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		\bigg[(N_0 + \upsilon_t)c_t- \lambda_tc_t\frac{c_t+h_t}{c_t+e^{\frac{m}{\sqrt{\lambda_t}}}h_t}
-		\bigg]- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
-		&= \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_tc_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}h_t+c_t}\\
+		c_t(N_0 + \upsilon_t)- \lambda_tc_t\frac{c_t+h_t}{c_t+e^{\frac{m}{\sqrt{\lambda_t}}}h_t}- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
+		&= \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}\\
 	\end{split}
 \end{equation}
 
 \subsection{Baseline Expected Cost}
 
 \begin{equation}
-	\upsilon_t= \lambda_t+\epsilon_t-N_0
+	\upsilon_t= \lambda_t-N_0
 \end{equation}
-where $\epsilon_t\leq \lambda_t$. This means
 
 \begin{equation}
 	\begin{split}
-		\mathbb{E}[C'|D,I] &\simeq \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		(h_t+c_t)\bigg[\frac{\lambda_t+\epsilon}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(\epsilon_t+1)}}- \frac{\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}\epsilon_t}}\bigg]\\
-		&\qquad\qquad\qquad
-		- c_t\epsilon_t\bigg)\\
-	\end{split}
-\end{equation}
-
-{\color{red} NOTE: Taylor expand exponential.}
-
-
-\begin{equation}
-	\begin{split}
-		\mathbb{E}[C'|D,I] \approx \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} h_t\epsilon_t
+		\mathbb{E}[C'|D,I] &\simeq \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} h_t\lambda_t 
+		\bigg(1+\frac{1}{\frac{h_t}{c_t}}\bigg)\bigg[\frac{1}{1+e^{-\frac{m}{\sqrt{\lambda_t}}}}- \frac{1}{2}\bigg]\\
+		&= \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \frac{h_t\lambda_t}{2} 
+		\bigg(1+\frac{1}{\frac{h_t}{c_t}}\bigg)\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{1+e^{\frac{m}{\sqrt{\lambda_t}}}}\\
 	\end{split}
 \end{equation}
 
@@ -96,32 +85,28 @@ where $\epsilon_t\leq \lambda_t$. This means
 \subsection{Policy Efficiency Ratio}
 
 \begin{equation}
-	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_tc_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}h_t+c_t}}{\sum_{t'=1}^{\infty} \gamma_{\text{disc}}^{t'} h_{t'}\epsilon_{t'}}
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\simeq \frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \frac{h_t\lambda_t}{2} 
+		(1+\frac{1}{\frac{h_t}{c_t}})\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{1+e^{\frac{m}{\sqrt{\lambda_t}}}}}
 \end{equation}
-$\lambda_t$ will be increasing since it is the mean corresponding to $\zeta_t$. This means 
-\begin{equation}
-	e^{\frac{m}{\sqrt{\lambda_t}}}\simeq 1+\frac{m}{\sqrt{\lambda_t}}
-\end{equation}
-consequently
-
-{\color{red} NOTE: to this point. Insert the exponential approximation. However, first, use the approximation for the baseline policy.}
+Assuming constant $h,c$ and only including the first term in the sums
 
 \begin{equation}
-	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_tc_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}h_t+c_t}}{\sum_{t'=1}^{\infty} \gamma_{\text{disc}}^{t'} h_{t'}\epsilon_{t'}}
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim 2\frac{1+e^{\frac{m}{\sqrt{\lambda_t}}}}{ 
+		(1+\frac{1}{\frac{h_t}{c_t}})(e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1)}
 \end{equation}
 
+\begin{equation}
+	1\leq e^{\frac{m}{\sqrt{\lambda_t}}}\lesssim 1.5
+\end{equation}
 
-$h_t,c_t\simeq \text{const}$
-\begin{equation}
-		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \epsilon_t}\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h}{c}+1}
-\end{equation}
-Since $\mathbb{E}[C^*|D,I]$ is the minimum expected cost at all times, the ratio must be smaller or equal to $1$, meaning
+meaning
 
 \begin{equation}
-	(e^{\frac{m}{\sqrt{\lambda_t}}}-1)\frac{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \epsilon_t}=1
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{4}{2+\frac{h_t}{c_t}+\frac{c_t}{h_t}}
 \end{equation}
-Assuming $\lambda_t\sim \epsilon_t$ for simplicity, then $m_t\sim \ln(2)$. This means
-\begin{equation}
-	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}
-\end{equation}
+
+{\color{red} NOTE: we ignore the lead time! Also, can PER > 1 occur? We do not have access to an exact result. The approximate exact (not shown here) indicate it MIGHT...}
+
+
+{\color{red} NOTE: PLOT this}
 
