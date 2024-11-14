@@ -3,7 +3,7 @@ Created on Thu Nov  7 09:30:54 2024
 
 @author: Jonas Petersen
 """
-
+#%%
 import numpy as np
 import pickle
 import matplotlib.pyplot as plt
@@ -37,7 +37,7 @@ plt.xlabel(r"$h_t$ (Holding Cost)")
 plt.ylabel(r"$c_t$ (Unit Value)")
 plt.tight_layout()
 plt.show()
-plt.savefig('./docs/SequentialDecisionMaking/figures/numerical_heatmap.pdf')
+plt.savefig('./docs/SequentialDecisionMaking/figures/numerical_per.pdf')
 
 
 #%%
@@ -46,11 +46,10 @@ plt.savefig('./docs/SequentialDecisionMaking/figures/numerical_heatmap.pdf')
 import numpy as np
 import matplotlib.pyplot as plt
 
-m = np.log(2)
 
 # Define the fraction function
-def fraction(holding_cost, unit_value, m):
-    return 1 / (1 + np.exp(m) * holding_cost / unit_value)
+def fraction(holding_cost, unit_value):
+    return 4 / (2 +holding_cost / unit_value + unit_value / holding_cost)
 
 # Define holding costs and unit values
 step = 0.1
@@ -59,7 +58,7 @@ unit_values = np.arange(1, 100+step, step)
 
 # Calculate heatmap values
 heatmap_values = np.array([
-    [fraction(h, u, m) for h in holding_costs] for u in unit_values
+    [fraction(h, u) for h in holding_costs] for u in unit_values
 ])
 
 # Plotting the heatmap
@@ -84,4 +83,4 @@ plt.tight_layout()
 
 # Display and save the plot
 plt.show()
-plt.savefig('./docs/SequentialDecisionMaking/figures/analytical_heatmap.pdf')
+plt.savefig('./docs/SequentialDecisionMaking/figures/analytical_per.pdf')

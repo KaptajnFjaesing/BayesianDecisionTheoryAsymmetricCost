@@ -35,7 +35,6 @@ def generate_data(lambda_true, time_Series_length, forecast_horizon, number_of_s
 def calculate_costs(
     unit_val,
     holding_cost,
-    criterion,
     lead_time,
     forecast_horizon,
     N0,
@@ -54,7 +53,7 @@ def calculate_costs(
         # Baseline decisions
         baseline_activation_time = int(N0 / round(np.mean(training_data)))
         decisions_baseline = np.zeros(forecast_horizon)
-        if baseline_activation_time < lead_time:
+        if baseline_activation_time > lead_time:
             decisions_baseline[baseline_activation_time-1:] = round(np.mean(training_data))
         else:
             decisions_baseline[lead_time-1:] = round(np.mean(training_data))
@@ -63,7 +62,7 @@ def calculate_costs(
         decisions_by_hand = np.zeros(forecast_horizon)
         for t in range(lead_time, forecast_horizon+1):
             N_t = forecasts[:, :t].sum(axis=1) - decisions_by_hand[:t-1].sum()
-            decisions_by_hand[t-1] = max(round(np.quantile(N_t - N0, criterion)), 0)
+            decisions_by_hand[t-1] = max(round(np.quantile(N_t - N0, unit_val/(unit_val+holding_cost))), 0)
         
         # Calculate actual costs
         N_unknown_without_decisions = N0 - np.cumsum(true_time_series[-forecast_horizon:])
@@ -81,8 +80,8 @@ possible_decisions = np.arange(0,20)
 time_Series_length = 300
 forecast_horizon = 52
 lead_time = 6
-number_of_samples = 5000
-ensemble_size = 5000
+number_of_samples = 1000
+ensemble_size = 1000
 N0 = 37
 
 #%%
@@ -95,7 +94,17 @@ costs_by_hand = np.zeros((len(unit_values), len(holding_costs)))
 # Iterate over holding_costs and unit_values using parallel processing
 for h in tqdm(range(1, len(holding_costs))):
     results = Parallel(n_jobs=-1)(
-        delayed(calculate_costs)(unit_values[c], holding_costs[h], unit_values[c] / (unit_values[c] + holding_costs[h]), lead_time, forecast_horizon, N0, ensemble_size)
+        delayed(calculate_costs)(
+            unit_values[c],
+            holding_costs[h],
+            lead_time,
+            forecast_horizon,
+            N0,
+            lambda_true,
+            time_Series_length,
+            number_of_samples,
+            ensemble_size
+            )
         for c in range(1, len(unit_values))
     )
     

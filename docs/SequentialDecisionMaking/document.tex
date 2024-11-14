@@ -117,6 +117,7 @@
 	In order to gauge the effect of using the optimal policy (equation \eqref{eq:opt}), the associated expected cost is compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
 	\begin{equation}
 		\text{PER}\equiv \frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]},
+		\label{eq:per_def}
 	\end{equation}
 	where $C^*$ is the cost function with the optimal policy and $C'$ is the baseline policy defined viz
 	
@@ -124,15 +125,19 @@
 		The baseline policy consists of ordering the expected value $\mathbb{E}[s_t|D,I]$ if $N_t<\mathbb{E}[s_t|D,I]$.
 	\end{definition}
 	
-	The baseline policy represents an (R,Q) policy~\citep{bartmann1992inventory,axsaeter2006inventory} with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution and ii) $k_t=k,c_t=c$ are constant, the PER can be approximated (see appendix \ref{app:cer} for derivation) viz
+	The baseline policy represents an (R,Q) policy~\citep{bartmann1992inventory,axsaeter2006inventory} with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution, ii) $k_t=k,c_t=c$ are constant and conditional independence, the PER can be approximated (see appendix \ref{app:cer} for derivation) viz
 	\begin{equation}
-		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\sim \frac{1}{1+\frac{2h}{c}}.
+		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{4}{2+\frac{h_t}{c_t}+\frac{c_t}{h_t}}.
 		\label{eq:per}
 	\end{equation}
+	
+	
+	========= to this point ===========
+	
 	Equation \eqref{eq:per} provides a rule of thumb to gauge the expected cost reduction by using the optimal policy (equation \eqref{eq:opt}) over a conventional approach. In typical industrial settings $c\gg h$ and so the expected reduction in cost will be modest, however, possibly still significant depending on the scale and elements included in the cost model. Figure \ref{fig:heatmap_analytical} show the PER (equation \eqref{eq:per}) plotted as a function of $h,c$.
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=\textwidth]{figures/analytical_heatmap.pdf}
+		\includegraphics[width=\textwidth]{figures/analytical_per.pdf}
 		\caption{Heatmap of the analytical policy efficiency ratio (equation \eqref{eq:per}).}
 		\label{fig:heatmap_analytical}
 	\end{figure}
@@ -148,7 +153,8 @@
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=\textwidth]{figures/numerical_heatmap.pdf}
+		\includegraphics[width=0.49\textwidth]{figures/simulated_per.pdf}
+		\includegraphics[width=0.49\textwidth]{figures/simulated_per2.pdf}
 		\caption{Heatmap of the numerical policy efficiency ratio calculated via simulation.}
 		\label{fig:heatmap_numerical}
 	\end{figure}
