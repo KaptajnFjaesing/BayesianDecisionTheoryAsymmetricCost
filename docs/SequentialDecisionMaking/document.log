@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  15 NOV 2024 20:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  15 NOV 2024 21:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -440,7 +440,7 @@ Overfull \hbox (1.50972pt too wide) in paragraph at lines 96--96
 <figures/analytical_per.pdf, id=147, 722.7pt x 578.16pt>
 File: figures/analytical_per.pdf Graphic file (type pdf)
 <use figures/analytical_per.pdf>
-Package pdftex.def Info: figures/analytical_per.pdf  used on input line 140.
+Package pdftex.def Info: figures/analytical_per.pdf  used on input line 146.
 (pdftex.def)             Requested size: 390.0pt x 311.99884pt.
 
 
@@ -450,12 +450,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <figures/simulated_per.pdf, id=163, 722.7pt x 578.16pt>
 File: figures/simulated_per.pdf Graphic file (type pdf)
 <use figures/simulated_per.pdf>
-Package pdftex.def Info: figures/simulated_per.pdf  used on input line 156.
+Package pdftex.def Info: figures/simulated_per.pdf  used on input line 162.
 (pdftex.def)             Requested size: 191.10214pt x 152.87643pt.
 <figures/simulated_per2.pdf, id=164, 722.7pt x 581.05081pt>
 File: figures/simulated_per2.pdf Graphic file (type pdf)
 <use figures/simulated_per2.pdf>
-Package pdftex.def Info: figures/simulated_per2.pdf  used on input line 157.
+Package pdftex.def Info: figures/simulated_per2.pdf  used on input line 163.
 (pdftex.def)             Requested size: 191.10214pt x 153.64081pt.
 
 
@@ -466,17 +466,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.170 		\item M
-               ention the benefit of the analytical solution; the computatio...
- <./figures/analytical_per.pdf>] [7
+l.173 	
+        <./figures/analytical_per.pdf>] [7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.179 	\end{enumerate}
-                       <./figures/simulated_per.pdf> <./figures/simulated_per2.
-pdf>] [8] (chapters/app_deriv.tex [9]) (chapters/app_expected_cost.tex [10]
-[11]
+l.184 		\item P
+               ER is highly dependent on the policy. If the reference level ...
+ <./figures/simulated_per.pdf> <./figures/simulated_per2.pdf>] [8]
+(chapters/app_deriv.tex [9]) (chapters/app_expected_cost.tex [10] [11]
 Overfull \hbox (11.72021pt too wide) detected at line 69
 []
  []
@@ -517,7 +516,7 @@ ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/roman/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/roman/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on document.pdf (16 pages, 537288 bytes).
+Output written on document.pdf (16 pages, 537454 bytes).
 PDF statistics:
  543 PDF objects out of 1000 (max. 8388607)
  108 named destinations out of 1000 (max. 500000)

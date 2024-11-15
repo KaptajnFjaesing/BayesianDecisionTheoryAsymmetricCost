@@ -126,13 +126,19 @@
 	\end{definition}
 	
 	The baseline policy represents an (R,Q) policy~\citep{bartmann1992inventory,axsaeter2006inventory} with the reorder point $N_t=0$ and batch quantity $\mathbb{E}[s_t|D,I]$. This policy is a simple approach to keeping the stock as close as possible to the reorder point while favoring a positive stock. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution, ii) $k_t=k,c_t=c$ are constant and conditional independence, the PER can be approximated (see appendix \ref{app:cer} for derivation) viz
+	
+	========= to this point ===========
+	
+	
+	{\color{red} I have limits now, rather than a general result. Investigate both limits numerically to validate results.}
+	
 	\begin{equation}
 		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\approx \frac{4}{2+\frac{h}{c}+\frac{c}{h}}.
 		\label{eq:per}
 	\end{equation}
 	
 	
-	========= to this point ===========
+	
 	
 	Equation \eqref{eq:per} provides a rule of thumb to gauge the expected cost reduction by using the optimal policy (equation \eqref{eq:opt}) over a conventional approach. In typical industrial settings $c\gg h$ and so the expected reduction in cost will be modest, however, possibly still significant depending on the scale and elements included in the cost model. Figure \ref{fig:heatmap_analytical} show the PER (equation \eqref{eq:per}) plotted as a function of $h,c$.
 	\begin{figure}[h!]
