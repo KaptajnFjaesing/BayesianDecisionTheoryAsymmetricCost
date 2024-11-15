@@ -69,29 +69,52 @@ yielding the optimal expected cost
 \end{equation}
 
 \subsection{Baseline Expected Cost}
-Finally, for the baseline cost, with $\upsilon_t= 1_{t\geq L}(\lambda_t-N_0)$, the baseline expected cost is
+Finally, for the baseline cost, with $\upsilon_t= 1_{t\geq L}(\lambda_t-N_0+R)$ with $R$ the constant reorder point, the baseline expected cost is
+\begin{equation}
+		\mathbb{E}[C'|D,I] \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
+		\frac{(h_t+c_t)(\lambda_t+R)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(R+1)}}- \frac{(h_t+c_t)\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}R}} - c_tR\bigg)
+\end{equation}
+with
 \begin{equation}
 	\begin{split}
-		\mathbb{E}[C'|D,I] &\simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \frac{h_t\lambda_t}{2} 
-		\bigg(1+\frac{1}{\frac{h_t}{c_t}}\bigg)\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{1+e^{\frac{m}{\sqrt{\lambda_t}}}}.
+			\lim\limits_{R\rightarrow 0} \mathbb{E}[C'|D,I] & \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}\frac{h_t\lambda_t}{2}\bigg(1+\frac{c_t}{h_t}\bigg)  
+			\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}+1},\\
+			\lim\limits_{R\rightarrow \infty} \mathbb{E}[C'|D,I] & \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} 
+			h_tR.\\
 	\end{split}
 \end{equation}
+
 
 \subsection{Policy Efficiency Ratio}
 Given the expected cost of the optimal and baseline policies, the PER can be written
 \begin{equation}
-	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\simeq \frac{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \frac{h_t\lambda_t}{2} 
-		(1+\frac{1}{\frac{h_t}{c_t}})\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{1+e^{\frac{m}{\sqrt{\lambda_t}}}}}
+	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\simeq \frac{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}h_t \bigg( 
+		\frac{(1+\frac{c_t}{h_t})(\lambda_t+R)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(R+1)}}- \frac{(1+\frac{c_t}{h_t})\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}R}} - \frac{c_t}{h_t}R\bigg)}
 \end{equation}
 Assuming constant $h,c$, that $E_L$ can be neglected in relative magnitude to the sums over infinity and using that \begin{equation}
 	1\leq e^{\frac{m}{\sqrt{\lambda_t}}}\lesssim 1.5 \Rightarrow  e^{\frac{m}{\sqrt{\lambda_t}}}\approx k
 \end{equation}
-yields
+the limit of $R\rightarrow 0$ yields
 \begin{equation}
 	\begin{split}
-		\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}&\approx2 \frac{\frac{k-1}{k\frac{h_t}{c_t}+1}}{(1+\frac{1}{\frac{h_t}{c_t}})\frac{k-1}{1+k}}\frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}\\
-		&= \frac{2(1+k)}{(1+\frac{1}{\frac{h_t}{c_t}})(k\frac{h_t}{c_t}+1)}\\
-		&\simeq \frac{4}{2+\frac{h_t}{c_t}+\frac{c_t}{h_t}}\\
+		\lim\limits_{R\rightarrow 0}\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]} 
+		&\approx 2 \frac{\frac{k-1}{k\frac{h}{c} + 1}}{\big(1 + \frac{1}{\frac{h}{c}}\big)\frac{k-1}{1+k}} \frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t} \\
+		&= \frac{2(1+k)}{\big(1 + \frac{1}{\frac{h}{c}}\big)\big(k\frac{h}{c} + 1\big)} \\
+		&\simeq \frac{4}{2 + \frac{h}{c} + \frac{c}{h}}
 	\end{split}
 \end{equation}
-where for the last equality it was used that $k\simeq 1$.
+where for the last equality it was used that $k\simeq 1$. In the limit of $R\rightarrow \infty$
+\begin{equation}
+	\begin{split}
+		\lim\limits_{R\rightarrow \infty}\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]} &\simeq \frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}h_t R} \\
+		&=\frac{1}{\frac{h}{c}+1} \frac{m}{R}\frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \sqrt{\lambda_t}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}} \\
+	\end{split}
+\end{equation}
+By definition
+\begin{equation}
+	\frac{m}{R}\frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \sqrt{\lambda_t}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}} = 1 
+\end{equation}
+since $0\leq \text{PER}\leq 1$. Therefore
+\begin{equation}
+		\lim\limits_{R\rightarrow \infty}\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]} \simeq \frac{1}{\frac{h}{c}+1}.
+\end{equation}
