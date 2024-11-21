@@ -1,16 +1,16 @@
-\section{Policy Efficiency Ratio}
-\label{app:cer}
-In this appendix, the policy efficiency ratio (PER, equation \eqref{eq:per_def}) is calculated under the assumption of i) $p(\zeta_t|D,I)$ follows a Poisson distribution, ii) $k_t=k,c_t=c$ are constant and conditional independence between $\zeta_t$. The first step consist of re-writing the expected cost
+\section{Expected Cost}
+\label{app:expected_cost}
+In this appendix, the policy efficiency ratio (PER, equation \eqref{eq:per_def}) is calculated under the assumption of i) $p(\zeta_t|D,I)$ follows a Poisson distribution and ii) conditional independence between $\zeta_t$. The first step consist of re-writing the expected cost
 \begin{equation}
 	\begin{split}
-		\mathbb{E}[C|D,I] &= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)N_tp(\zeta_t| D, I)\\
-		&= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t} \bigg( 
+		\mathbb{E}[C|D,I] &= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t-1} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)N_tp(\zeta_t| D, I)\\
+		&= \sum_{t=1}^{\infty}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t-1} \bigg( 
 		(h_t+c_t)(N_0 + \upsilon_t)1_{N_t> 0}\\
 		&\qquad\qquad\qquad\quad-(h_t+c_t) 1_{N_t> 0}\zeta_t
 		- c_t(N_0 + \upsilon_t)+c_t\zeta_t\bigg)p(\zeta_t| D, I).
 	\end{split}
 \end{equation}
-The sums over $\zeta_t$ can be expressed as follows
+The sums over $\zeta_t$ can be expressed as follows (see appendix \ref{sec:poisson_identities})
 \begin{equation}
 	\begin{split}
 		\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I) & = \sum_{\zeta_t=0}^{N_0+\upsilon_t} p(\zeta_t| D, I)\\
@@ -21,100 +21,12 @@ The sums over $\zeta_t$ can be expressed as follows
 		\sum_{\zeta_t=0}^\infty p(\zeta_t| D, I) & = 1.\\
 	\end{split}
 \end{equation}
-Using an approximation from \cite{bartmann1992inventory}
-\begin{equation}
-	\frac{\Gamma(x,y)}{\Gamma(x)}\simeq \frac{1}{1+e^{-\frac{m}{\sqrt{y}}(x-y)}}
-\end{equation}
-with $m\simeq 1.8$. Applying this yields
+Collecting the results means
 \begin{equation}
 	\begin{split}
-		\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I) & \simeq \frac{1}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t+1-\lambda_t)}},\\
-		\sum_{\zeta_t=0}^\infty1_{N_t> 0}\zeta_tp(\zeta_t| D, I) & \simeq \lambda_t\frac{1}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t-\lambda_t)}}.
+		\mathbb{E}[C|D,I] = \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t-1} \bigg(& 
+		(h_t+c_t)(N_0 + \upsilon_t)\frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)}\\&- (h_h+c_t)\lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)}\\
+		&- c_t(N_0 + \upsilon_t-\lambda_t)\bigg).
 	\end{split}
-\end{equation}
-The expected cost can thus be written
-\begin{equation}
-	\begin{split}
-		\mathbb{E}[C|D,I] &\simeq \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		(h_t+c_t)\bigg[\frac{N_0 + \upsilon_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t+1-\lambda_t)}}\\
-		&\quad- \frac{\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t-\lambda_t)}}\bigg] - c_t(N_0 + \upsilon_t-\lambda_t)\bigg).
-	\end{split}
-\end{equation}
-Due to the lead time, no decisions can be implemented until $t \geq L$, leading to
-\begin{equation}
-	\begin{split}
-		\mathbb{E}[C|D,I] &\simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		(h_t+c_t)\bigg[\frac{N_0 + \upsilon_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t+1-\lambda_t)}}\\
-		&\quad- \frac{\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t-\lambda_t)}}\bigg] - c_t(N_0 + \upsilon_t-\lambda_t)\bigg),
-	\end{split}
-\end{equation}
-where $E_L$ is defined as
-\begin{equation}
-	E_L \equiv \sum_{t=1}^{L-1} \gamma_{\text{disc}}^{t} \bigg( 
-	\frac{N_0(h_t+c_t)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+1-\lambda_t)}} - \frac{\lambda_t(h_t+c_t)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0-\lambda_t)}} - \frac{c_t}{h_t}(N_0-\lambda_t)\bigg).
-\end{equation}
-
-\subsection{Optimal Expected Cost}
-For the optimal cost, use that
-\begin{equation}
-	\frac{c_t}{c_t+h_t}1_{t\geq L}\simeq\frac{1}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(N_0+\upsilon_t+1-\lambda_t)}}
-\end{equation}
-yielding the optimal expected cost
-\begin{equation}
-	\begin{split}
-		\mathbb{E}[C^*|D,I] &\simeq E_L+ \sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		c_t(N_0 + \upsilon_t)- \lambda_tc_t\frac{c_t+h_t}{c_t+e^{\frac{m}{\sqrt{\lambda_t}}}h_t}- c_t(N_0 + \upsilon_t-\lambda_t)\bigg)\\
-		&= E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}.\\
-	\end{split}
-\end{equation}
-
-\subsection{Baseline Expected Cost}
-Finally, for the baseline cost, with $\upsilon_t= 1_{t\geq L}(\lambda_t-N_0+R)$ with $R$ the constant reorder point, the baseline expected cost is
-\begin{equation}
-		\mathbb{E}[C'|D,I] \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \bigg( 
-		\frac{(h_t+c_t)(\lambda_t+R)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(R+1)}}- \frac{(h_t+c_t)\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}R}} - c_tR\bigg)
-\end{equation}
-with
-\begin{equation}
-	\begin{split}
-			\lim\limits_{R\rightarrow 0} \mathbb{E}[C'|D,I] & \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}\frac{h_t\lambda_t}{2}\bigg(1+\frac{c_t}{h_t}\bigg)  
-			\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}+1},\\
-			\lim\limits_{R\rightarrow \infty} \mathbb{E}[C'|D,I] & \simeq E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} 
-			h_tR.\\
-	\end{split}
-\end{equation}
-
-
-\subsection{Policy Efficiency Ratio}
-Given the expected cost of the optimal and baseline policies, the PER can be written
-\begin{equation}
-	\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]}\simeq \frac{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{E_L+\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}h_t \bigg( 
-		\frac{(1+\frac{c_t}{h_t})(\lambda_t+R)}{1+e^{-\frac{m}{\sqrt{\lambda_t}}(R+1)}}- \frac{(1+\frac{c_t}{h_t})\lambda_t}{1+e^{-\frac{m}{\sqrt{\lambda_t}}R}} - \frac{c_t}{h_t}R\bigg)}
-\end{equation}
-Assuming constant $h,c$, that $E_L$ can be neglected in relative magnitude to the sums over infinity and using that \begin{equation}
-	1\leq e^{\frac{m}{\sqrt{\lambda_t}}}\lesssim 1.5 \Rightarrow  e^{\frac{m}{\sqrt{\lambda_t}}}\approx k
-\end{equation}
-the limit of $R\rightarrow 0$ yields
-\begin{equation}
-	\begin{split}
-		\lim\limits_{R\rightarrow 0}\frac{\mathbb{E}[C^*|D,I]}{\mathbb{E}[C'|D,I]} 
-		&\approx 2 \frac{\frac{k-1}{k\frac{h}{c} + 1}}{\big(1 + \frac{1}{\frac{h}{c}}\big)\frac{k-1}{1+k}} \frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_t} \\
-		&= \frac{2(1+k)}{\big(1 + \frac{1}{\frac{h}{c}}\big)\big(k\frac{h}{c} + 1\big)} \\
-		&\simeq \frac{4}{2 + \frac{h}{c} + \frac{c}{h}}
-	\end{split}
-\end{equation}
-where for the last equality it was used that $k\simeq 1$. In the limit of $R\rightarrow \infty$
-\begin{equation}
-	\begin{split}
-		\lim\limits_{R\rightarrow \infty}\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]} &\simeq \frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \lambda_th_t\frac{e^{\frac{m}{\sqrt{\lambda_t}}}-1}{e^{\frac{m}{\sqrt{\lambda_t}}}\frac{h_t}{c_t}+1}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}h_t R} \\
-		&=\frac{1}{\frac{h}{c}+1} \frac{m}{R}\frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \sqrt{\lambda_t}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}} \\
-	\end{split}
-\end{equation}
-By definition
-\begin{equation}
-	\frac{m}{R}\frac{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t} \sqrt{\lambda_t}}{\sum_{t=L}^{\infty} \gamma_{\text{disc}}^{t}} = 1 
-\end{equation}
-since $0\leq \text{PER}\leq 1$. Therefore
-\begin{equation}
-		\lim\limits_{R\rightarrow \infty}\frac{\mathbb{E}[C^*|D,I] }{\mathbb{E}[C'|D,I]} \simeq \frac{1}{1+\frac{h}{c}}.
+	\label{eq:exact}
 \end{equation}

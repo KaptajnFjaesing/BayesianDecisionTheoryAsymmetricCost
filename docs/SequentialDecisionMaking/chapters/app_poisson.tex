@@ -2,27 +2,21 @@
 \label{sec:poisson_identities}
 The Poisson distribution with rate parameter $\lambda$ describes the probability of a discrete random variable $\zeta$ taking integer values. Here, some key identities relevant for the PER (equation \eqref{eq:per_def}) are explored. The cumulative probability of observing $\zeta \leq k$ given a Poisson rate $\lambda$ is
 \begin{equation}
-	p(\zeta \leq k | \lambda) = e^{-\lambda} \sum_{j=0}^k \frac{\lambda^j}{j!}.
+	\begin{split}
+		p(\zeta \leq k | \lambda) &= e^{-\lambda} \sum_{j=0}^k \frac{\lambda^j}{j!}\\
+		& = \frac{\Gamma(k+1,\lambda)}{\Gamma(k+1)},
+	\end{split}
 \end{equation}
-This expression can also be written in terms of the incomplete gamma function, which is defined as
+where $\Gamma(k+1,\lambda)$ is the incomplete gamma function and $\Gamma(s)$ denotes the complete gamma function
 \begin{equation}
-	\Gamma(s, x) = (s-1)! e^{-x} \sum_{j=0}^{s-1} \frac{x^j}{j!},
-\end{equation}
-where $\Gamma(s)$ denotes the complete gamma function
-\begin{equation}
-	\Gamma(s) = (s-1)!.
-\end{equation}
-Using the incomplete gamma function, the cumulative probability $p(x \leq s | \lambda)$ can be expressed as
-\begin{equation}
-	p(x \leq s | \lambda) = \frac{\Gamma(s+1, x)}{\Gamma(s+1)}.
+	\Gamma(k+1) = k!.
 \end{equation}
 Similarly, an expression for the conditional expectation of $\zeta$, given that $\zeta \leq k$, can be derived viz
-
 \begin{equation}
 	\begin{split}
 		\mathbb{E}[\zeta | \zeta \leq k, \lambda] &= e^{-\lambda} \sum_{j=0}^k j \frac{\lambda^j}{j!} \\
 		&= e^{-\lambda} \sum_{j=0}^{k} \frac{\lambda^{j}}{(j-1)!} \\
 		&= \lambda e^{-\lambda} \sum_{j=0}^{k-1} \frac{\lambda^{j}}{j!} \\
-		&= \lambda \frac{\Gamma(s, x)}{\Gamma(s)}.
+		&= \lambda \frac{\Gamma(k, \lambda)}{\Gamma(k)}.
 	\end{split}
 \end{equation}

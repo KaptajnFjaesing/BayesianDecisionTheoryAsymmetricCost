@@ -2,7 +2,7 @@
 \label{app:deriva}
 To determine the policy, $\xi^*$, that minimize the expected cost $\mathbb{E}[C|D,I]$, the derivative of the cost function with respect to $\xi$ is needed
 \begin{equation}
-		\frac{dC}{dU_m} = \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)\frac{dN_t}{dU_m}
+		\frac{dC}{dU_m} = \sum_{t=1}^{\infty} \gamma_{\text{disc}}^{t-1} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)\frac{dN_t}{dU_m}
 	\label{eq:deriv_1ab}
 \end{equation}
 where
@@ -16,7 +16,7 @@ where
 Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
 \begin{equation}
 	\begin{split}
-		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma_{\text{disc}}^{t}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
+		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma_{\text{disc}}^{t-1}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
 	\end{split}
 \end{equation}
 For some generic function $g_t$
@@ -28,12 +28,12 @@ For some generic function $g_t$
 \end{equation}
 meaning
 \begin{equation}
-	\frac{dC}{dU_m} = \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
+	\frac{dC}{dU_m} = \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t-1}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
 	\label{eq:deriv_3a}
 \end{equation}
 Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
 \begin{equation}
-	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t}(h_t1_{N_{t}\geq 0}+c_t(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
+	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t-1}(h_t1_{N_{t}\geq 0}+c_t(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
 \end{equation}
 The sums can be evaluated viz
 \begin{equation}
@@ -49,28 +49,28 @@ Let
 then
 \begin{equation}
 	\begin{split}
-		\frac{d}{dU_m}\mathbb{E}[C|D,I]& = \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t}\psi_t\\
+		\frac{d}{dU_m}\mathbb{E}[C|D,I]& = \sum_{t=L+m}^{\infty}\gamma_{\text{disc}}^{t-1}\psi_t\\
 		&\overset{!}{=} 0\quad \forall m
 	\end{split}
 \end{equation}
 A recursion relation can be derived viz
 \begin{equation}
 	\begin{split}
-		\frac{d}{dU_0}\mathbb{E}[C|D,I] & = \sum_{t=L}^{\infty}\gamma_{\text{disc}}^{t}\psi_t\\
-		& =\gamma_{\text{disc}}^{L}\psi_L+\sum_{t=L+1}^{\infty}\gamma_{\text{disc}}^{t}\psi_t\\
-		& =\gamma_{\text{disc}}^{L}\psi_L+\frac{d}{dU_1}\mathbb{E}[C|D,I]\\
-		& =\gamma_{\text{disc}}^{L}\psi_L+\gamma_{\text{disc}}^{L+1}\psi_{L+1}+\frac{d}{dU_2}\mathbb{E}[C|D,I]\\
+		\frac{d}{dU_0}\mathbb{E}[C|D,I] & = \sum_{t=L}^{\infty}\gamma_{\text{disc}}^{t-1}\psi_t\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\sum_{t=L+1}^{\infty}\gamma_{\text{disc}}^{t-1}\psi_t\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\frac{d}{dU_1}\mathbb{E}[C|D,I]\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\gamma_{\text{disc}}^{L}\psi_{L+1}+\frac{d}{dU_2}\mathbb{E}[C|D,I]\\
 		&=\dots\\
 		&\overset{!}{=} 0
 	\end{split} 
 \end{equation}
 meaning
 \begin{equation}
-		\frac{d}{dU_m}\mathbb{E}[C|D,I] =\gamma_{\text{disc}}^{L+m}\psi_{L+m}+\frac{d}{dU_{m+1}}\mathbb{E}[C|D,I]. 
+		\frac{d}{dU_m}\mathbb{E}[C|D,I] =\gamma_{\text{disc}}^{L+m-1}\psi_{L+m}+\frac{d}{dU_{m+1}}\mathbb{E}[C|D,I]. 
 \end{equation}
 Since all derivatives are required to be simultaneously zero,
 \begin{equation}
-	\gamma_{\text{disc}}^{j}\psi_j\overset{!}{=} 0\quad \forall j \Rightarrow \psi_j=0
+	\gamma_{\text{disc}}^{j-1}\psi_j\overset{!}{=} 0\quad \forall j \Rightarrow \psi_j=0
 \end{equation}
 meaning
 \begin{equation}
