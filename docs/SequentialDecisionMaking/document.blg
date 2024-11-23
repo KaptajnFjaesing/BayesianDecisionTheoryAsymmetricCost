@@ -5,49 +5,49 @@ Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: plainnat.bst
 Reallocating 'name_of_file' (item size: 1) to 4 items.
 Database file #1: ref.bib
-I was expecting a `,' or a `}'---line 2395 of file ref.bib
+I was expecting a `,' or a `}'---line 2435 of file ref.bib
  :  number = 91
  :             (1B),
 I'm skipping whatever remains of this entry
-You've used 10 entries,
+You've used 12 entries,
             2773 wiz_defined-function locations,
-            667 strings with 6269 characters,
-and the built_in function-call counts, 3980 in all, are:
-= -- 362
-> -- 155
-< -- 10
-+ -- 55
-- -- 45
-* -- 288
-:= -- 620
-add.period$ -- 32
-call.type$ -- 10
-change.case$ -- 45
-chr.to.int$ -- 10
-cite$ -- 20
-duplicate$ -- 200
-empty$ -- 377
-format.name$ -- 65
-if$ -- 849
+            681 strings with 6498 characters,
+and the built_in function-call counts, 4663 in all, are:
+= -- 420
+> -- 186
+< -- 12
++ -- 66
+- -- 54
+* -- 330
+:= -- 733
+add.period$ -- 40
+call.type$ -- 12
+change.case$ -- 52
+chr.to.int$ -- 12
+cite$ -- 24
+duplicate$ -- 240
+empty$ -- 441
+format.name$ -- 78
+if$ -- 993
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 12
-newline$ -- 59
-num.names$ -- 40
-pop$ -- 79
+missing$ -- 16
+newline$ -- 71
+num.names$ -- 48
+pop$ -- 100
 preamble$ -- 1
-purify$ -- 35
+purify$ -- 42
 quote$ -- 0
-skip$ -- 144
+skip$ -- 171
 stack$ -- 0
-substring$ -- 176
-swap$ -- 10
+substring$ -- 180
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 100
+type$ -- 112
 warning$ -- 0
-while$ -- 38
+while$ -- 44
 width$ -- 0
-write$ -- 141
+write$ -- 171
 (There was 1 error message)

@@ -1,0 +1,34 @@
+\section{Notes}
+\begin{enumerate}
+	\item In order to eliminate $\upsilon_t$ from the optimal policy, the the equation
+	\begin{equation}
+		\begin{split}
+			\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I)&= \sum_{\zeta_t=0}^{N_0+\upsilon_t} p(\zeta_t|\upsilon_t\geq 0, D, I)\\
+			&=\frac{c_t}{c_t+h_t}1_{\upsilon_t\geq 0}
+		\end{split}
+	\end{equation}
+	must be solvable for $\upsilon_t$. 
+	
+	\item There are differences in the implementation of the policy using the approximation of the Poisson distribution. This implementation is extremely sensitive, because when you roll over time, you slice the distribution in many places and at some point, your slice will end up between a round down and a round up. From that point, the decisions coming after are affected. In terms of the cost function, it can therefore have a relatively significant effect and an approximation that seems excellent on the face, can have unintended effects. This just means the implementation of the policy should always follow the quantile rather than the approximation.
+\end{enumerate}
+
+\begin{enumerate}
+	\item A few words on the intuitive interpretation of the cost function? The number of units overstocked multiplied with the cost of overstocking per unit. The number of units understocked multiplied with the value of each unit. The latter represents the lost value.
+	\item Mention the benefit of the analytical solution; the computation speed relative to a numerical optimization is highly beneficial at scale.
+	\item Compress the recursive relation to $m$-notation. 
+	\item The baseline policy is an (R,Q) policy with $R =0$ and $Q = \mathbb{E}[s_t|D,I]$.
+	\item Is our result in any of the inventory control books?
+	\item will the relationship between baseline and optimal policy depend on forecasting method? I would say yes. How do we handle this?
+	
+	\item if there is around the same cost for over/under stocking, there is a $30-40\%$ reduction in costs with the optimal policy compared to the baseline. In the limit of $c\gg h$, the reduction in cost approach $0\%$ and the gains are minor. This is the relevant limit in most cases, where the value of the unit significantly outweigh the holding cost. This is relevant, however, it is underlined, that the baseline policy is always equal or worse (statistically, meaning the expected cost is always lower. Expected cost is over a distribution. draws from that distribution can fall either way) than the optimal policy. 
+	
+	\item PER is highly dependent on the policy. If the reference level is moved away from $N_t =0$, for example, the plot completely changes and the blue area shifts to the top left corner.
+\end{enumerate}
+
+\begin{enumerate}
+	\item \href{https://www.academia.edu/27965536/Inventorycontroltextbook_140429044831_phpapp02_1_}{S. Axsäter. Inventory control}
+	\item \href{https://proceedings.mlr.press/v151/kan22a/kan22a.pdf}{Gasthaus paper}
+	\item \href{https://arxiv.org/pdf/2012.02392}{inspiration for introduction}
+	\item \href{https://arxiv.org/pdf/2310.17168}{probabilistic trucks}
+	\item \href{https://arxiv.org/pdf/2310.16096}{Amazon paper} (inspiration)
+\end{enumerate}

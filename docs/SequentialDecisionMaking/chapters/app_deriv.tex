@@ -1,53 +1,56 @@
-\section{Minimization of Expected Cost: First Cost Function}
+\section{Optimal Policy}
 \label{app:deriva}
-Define the cost function viz
-\begin{equation}
-	C = \sum_{t=1}^{\infty}\gamma^{t}(h_tN_t^{(+)}+c_tN_t^{(-)}),
-\end{equation}
-where $k^\text{sc}$ and $k^\text{uv}$ represent the "storage cost" and the "unit value". To determine the decision rules, $\xi^*$, that minimize the expected cost $\mathbb{E}[C|D,I]$, the derivative of the cost function with respect to $\xi$ is needed
-\begin{equation}
-		\frac{dC}{dU_m} = \sum_{t=1}^{\infty}\gamma^{t}\bigg(h_t\frac{dN_{t}^{(+)}}{dU_m}+c_t\frac{dN_{t}^{(-)}}{dU_m}\bigg)
-	\label{eq:deriv_1ab}
-\end{equation}
-where
+In accordance with theorem \ref{def:policy}, the optimal policy $\pi^*$ is defined by the first and second order conditions of equation \eqref{eq:conditions}.
+
+\subsection{First order condition}
+The first order condition can be written
 \begin{equation}
 	\begin{split}
-		\frac{dN_{t}^{(+)}}{dU_m}& =\sum_q 	\frac{dN_{t}^{(+)}}{dN_q}\frac{dN_q}{dU_m}\\
-		& =\sum_q 	1_{N_{t}\geq 0}\delta_{t,q}\frac{dN_q}{dU_m}\\
-		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\frac{dU_{t'-L}}{dU_m}\\
-		& = 1_{N_{t}\geq 0}\sum_{t'=1}^t\delta_{t'-L,m},\\
-		\frac{dN_{t}^{(-)}}{dU_m} &= (1_{N_t\geq 0}-1)\sum_{t'=1}^t\delta_{t'-L,m}.
-		\label{eq:deriv_2ab}
+		\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} &= \frac{d}{dU_m} \sum_{s_1,s_2,\dots s_T}  p(s_1,s_{2},\dots s_T|D,I)\frac{dC}{dU_m}\Big|_{U_m=U_m^*}\\
+		&=0
+	\end{split}
+	\label{eq:cond}
+\end{equation}
+with
+\begin{equation}
+		\frac{dC}{dU_m} = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)\frac{dN_t}{dU_m}
+	\label{eq:deriv_1ab}
+\end{equation}
+and
+\begin{equation}
+	\begin{split}
+		\frac{dN_q}{dU_m} &= \sum_{t'=1}^t\frac{dU_{t'-L}}{dU_m}\\
+		& = \sum_{t'=1}^t\delta_{t'-L,m}.
+	\label{eq:deriv_2ab}
 	\end{split}
 \end{equation}
 Using equation \eqref{eq:deriv_2ab} in equation \eqref{eq:deriv_1ab} 
 \begin{equation}
 	\begin{split}
-		\frac{dC}{dU_m} \simeq \sum_{t=1}^{\infty}\gamma^{t}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
+		\frac{dC}{dU_m} = \sum_{t=1}^{T}\gamma_{\text{disc}}^{t-1}\bigg(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)\bigg)\sum_{t'=1}^t\delta_{t'-L,m}.
 	\end{split}
 \end{equation}
 For some generic function $g_t$
 \begin{equation}
 	\begin{split}
-		\sum_{t=1}^{\infty}g_t\sum_{t'=1}^t\delta_{t'-L,m} & = g_1\delta_{1-L,m}+g_2(\delta_{1-L,m}+\delta_{2-L,m})+\dots\\
-		&=\sum_{t=L+m}^\infty g_t
+		\sum_{t=1}^{T}g_t\sum_{t'=1}^t\delta_{t'-L,m} & = g_1\delta_{1-L,m}+g_2(\delta_{1-L,m}+\delta_{2-L,m})+\dots\\
+		&=\sum_{t=L+m}^T g_t
 	\end{split}
 \end{equation}
 meaning
 \begin{equation}
-	\frac{dC}{dU_m} \simeq \sum_{t=L+m}^{\infty}\gamma^{t}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
+	\frac{dC}{dU_m} = \sum_{t=L+m}^{T}\gamma_{\text{disc}}^{t-1}(h_t1_{N_t\geq 0}+c_t(1_{N_t\geq 0}-1)).
 	\label{eq:deriv_3a}
 \end{equation}
-Combining equations \eqref{eq:min_exp_cost} and \eqref{eq:deriv_3a}
+Combining equations \eqref{eq:cond} and \eqref{eq:deriv_3a}
 \begin{equation}
-	\sum_{s_1,s_2,\dots}\sum_{t=L+m}^{\infty}\gamma^{t}(h_t1_{N_{t}\geq 0}+c_t(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots|D,I)\overset{!}{=} 0\quad \forall m
+	\sum_{s_1,s_2,\dots s_T}\sum_{t=L+m}^{T}\gamma_{\text{disc}}^{t-1}(h_t1_{N_{t}\geq 0}+c_t(1_{N_{t}\geq 0}-1))p(s_1,s_{2},\dots s_T|D,I)\Big|_{U_m=U_m^*} = 0
 \end{equation}
 The sums can be evaluated viz
 \begin{equation}
 	\begin{split}
-		\sum_{s_1,s_2,\dots}1_{N_{t}\geq 0}p(s_1,s_{2},\dots|D,I) &= p\bigg(\sum_{t'=1}^{t}s_{t'}\leq N_0+\sum_{t'=1}^{t}U_{t'-L}|D,I\bigg)\\
-		&= p(N_t\geq 0|D,I),\\
-		\sum_{s_1,s_2,\dots}p(s_1,s_{2},\dots|D,I)&=1.\\
+		\sum_{s_1,s_2,\dots s_T}1_{N_{t}\geq 0}p(s_1,s_{2},\dots s_T|D,I) &= p(N_t\geq 0|D,I),\\
+		\sum_{s_1,s_2,\dots s_T}p(s_1,s_{2},\dots s_T|D,I)&=1.\\
 	\end{split}
 \end{equation}
 Let
@@ -57,36 +60,35 @@ Let
 then
 \begin{equation}
 	\begin{split}
-		\frac{d}{dU_m}\mathbb{E}[C|D,I]& = \sum_{t=L+m}^{\infty}\gamma^{t}\psi_t\\
-		&\overset{!}{=} 0\quad \forall m
+		\frac{d}{dU_m}\mathbb{E}[C|D,I]\Big|_{U_m=U_m^*}& = \sum_{t=L+m}^{T}\gamma_{\text{disc}}^{t-1}\psi_t\\
+		&= 0
 	\end{split}
 \end{equation}
 A recursion relation can be derived viz
 \begin{equation}
 	\begin{split}
-		\frac{d}{dU_0}\mathbb{E}[C|D,I] & = \sum_{t=L}^{\infty}\gamma^{t}\psi_t\\
-		& =\gamma^{L}\psi_L+\sum_{t=L+1}^{\infty}\gamma^{t}\psi_t\\
-		& =\gamma^{L}\psi_L+\frac{d}{dU_1}\mathbb{E}[C|D,I]\\
-		& =\gamma^{L}\psi_L+\gamma^{L+1}\psi_{L+1}+\frac{d}{dU_2}\mathbb{E}[C|D,I]\\
+		\frac{d}{dU_0}\mathbb{E}[C|D,I]& = \sum_{t=L}^{T}\gamma_{\text{disc}}^{t-1}\psi_t\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\sum_{t=L+1}^{T}\gamma_{\text{disc}}^{t-1}\psi_t\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\frac{d}{dU_1}\mathbb{E}[C|D,I]\\
+		& =\gamma_{\text{disc}}^{L-1}\psi_L+\gamma_{\text{disc}}^{L}\psi_{L+1}+\frac{d}{dU_2}\mathbb{E}[C|D,I]\\
 		&=\dots\\
-		&\overset{!}{=} 0
 	\end{split} 
 \end{equation}
-Since all derivatives are required to be simultaneously zero,
+meaning
 \begin{equation}
-	\gamma^{j}\psi_j\overset{!}{=} 0\quad \forall j \Rightarrow \psi_j=0
+		\frac{d}{dU_m}\mathbb{E}[C|D,I] =\gamma_{\text{disc}}^{L+m-1}\psi_{L+m}+\frac{d}{dU_{m+1}}\mathbb{E}[C|D,I]. 
+\end{equation}
+For the optimal policy, all first order derivative vanish, so meaning
+\begin{equation}
+	\gamma_{\text{disc}}^{j-1}\psi_j|_{U_m=U_m^*}= 0\quad \forall j \Rightarrow \psi_j|_{U_m=U_m^*}=0
 \end{equation}
 meaning
 \begin{equation}
 	p(N_t^*\geq 0|D,I)=\frac{c_t}{c_t+h_t},
 	\label{decision_rules}
 \end{equation}
-where
+for $t\geq L$ and $\upsilon_t^*\geq 0$, where
 \begin{equation}
-	N_t^*\equiv N_0+\sum_{t'=1}^{t}(U_{t'-L}^*-s_{t'})
+	N_t^*\equiv N_0+\upsilon_t^*-\zeta_t
 \end{equation}
-denote the units on stock given optimal decisions. From equation \eqref{decision_rules} the optimal decisions can be determined viz
-\begin{equation}
-	\sum_{t'=1}^{t}U_{t'-L}^* = \max\bigg(\operatorname{round}\bigg(Q_{\frac{c_t}{c_t+h_t}}\bigg(\sum_{t'=1}^{t}s_{t'}-N_0\bigg)\bigg),0\bigg),
-\end{equation}
-where $Q_q(X)$ is the $q$-quantile for the random variable $X$.
+denote the units on stock given optimal decisions.

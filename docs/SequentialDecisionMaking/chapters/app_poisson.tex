@@ -1,0 +1,22 @@
+\section{Identities Related to the Poisson Distribution}
+\label{sec:poisson_identities}
+The Poisson distribution with rate parameter $\lambda$ describes the probability of a discrete random variable $\zeta$ taking integer values. Here, some key identities relevant for the PER (equation \eqref{eq:per_def}) are explored. The cumulative probability of observing $\zeta \leq k$ given a Poisson rate $\lambda$ is
+\begin{equation}
+	\begin{split}
+		p(\zeta \leq k | \lambda) &= e^{-\lambda} \sum_{j=0}^k \frac{\lambda^j}{j!}\\
+		& = \frac{\Gamma(k+1,\lambda)}{\Gamma(k+1)},
+	\end{split}
+\end{equation}
+where $\Gamma(k+1,\lambda)$ is the incomplete gamma function and $\Gamma(s)$ denotes the complete gamma function
+\begin{equation}
+	\Gamma(k+1) = k!.
+\end{equation}
+Similarly, an expression for the conditional expectation of $\zeta$, given that $\zeta \leq k$, can be derived viz
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[\zeta | \zeta \leq k, \lambda] &= e^{-\lambda} \sum_{j=0}^k j \frac{\lambda^j}{j!} \\
+		&= e^{-\lambda} \sum_{j=0}^{k} \frac{\lambda^{j}}{(j-1)!} \\
+		&= \lambda e^{-\lambda} \sum_{j=0}^{k-1} \frac{\lambda^{j}}{j!} \\
+		&= \lambda \frac{\Gamma(k, \lambda)}{\Gamma(k)}.
+	\end{split}
+\end{equation}

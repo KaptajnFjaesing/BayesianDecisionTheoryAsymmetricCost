@@ -1,9 +1,11 @@
 \documentclass[a4paper,12pt]{article}
+
 \usepackage{amsmath}  % For equations
 \usepackage{amsfonts} % For mathematical symbols
 \usepackage{graphicx} % For figures
 \usepackage{hyperref} % For links
 \usepackage{appendix} % For appendices
+\usepackage{amssymb}
 \usepackage [round,authoryear] {natbib}
 
 \DeclareMathOperator*{\argmax}{argmax}
@@ -12,17 +14,14 @@
 \usepackage{amsthm}
 \usepackage{xcolor}
 
-\theoremstyle{definition}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
 \newtheorem{exinn}{Example}
 \newtheorem{theorem}{Theorem}
-
-\newenvironment{example}
-{\clubpenalty=10000
-	\begin{exinn}%
-		\mbox{}%
-		{\color{black}\leaders\hrule height .8ex depth \dimexpr-.8ex+0.8pt\relax\hfill}%
-		\mbox{}\linebreak\ignorespaces}
-	{\par\kern2ex\hrule\end{exinn}}
+\newtheorem{definition}{Definition}
+\newtheorem{axiom}{Axiom}
 
 
 \title{Sequential Decision-Making for Inventory Control using Bayesian Decision Theory}
@@ -48,84 +47,142 @@
 	In this study, Bayesian decision theory is utilized to address a sequential inventory control problem. Specifically, an optimal decision-making framework is derived based on a discounted asymmetric cost function, considering the impact of decisions made infinitely far into the future. Our model involves a decision-maker (henceforth referred to as the Robot) who manages stock levels over time in an interactive environment shaped by a random demand process. Through this setup, a mathematically rigorous and computationally feasible solution for optimal inventory decisions that account for uncertainty and asymmetric costs is derived.
 	
 	\section{Sequential Decision-Making Framework}
-	To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot makes decisions at each time step, interacting with an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. At each iteration $t$, the Robot decides on an action from its action space $\Omega_U$, while Nature removes a certain number of units from stock, denoted $s_t \in \Omega_S$. The goal is to manage the stock optimally, balancing the costs of overstocking ($N > 0$) and understocking ($N < 0$), given that each action taken has a probabilistic effect on the Robot’s objectives.
-	
-	The Robot’s decisions are based on historical data $D$, which contains past stock removals and other relevant demand features. Given an initial stock $N_0$, the stock level at time $t$ evolves according to
-	\begin{equation}
-		N_t \equiv N_0 + \sum_{t'=1}^{t} (U_{t'-L} - s_{t'}),
-	\end{equation}
-	where $U_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$. To support probabilistic decision-making, the Robot uses a forecast based on $D$ in the form
-	\begin{equation}
-		p(s_1, s_2, \dots | D, I),
-	\end{equation}
-	where $I$ denotes any additional background information~\citep{Sivia2006}. This probabilistic forecast, combined with the Robot's asymmetric cost function, guides the sequence of decisions over time.
-	
-	\section{Formulation of the Cost Function and Optimal Decision Rule}
-	An asymmetric cost function reflecting the penalties associated with understocking and overstocking is constructed using the ReLU (rectified linear unit) function,
-	\begin{equation}
-		\begin{split}
-			\text{relu}(\pm N_t) &= \max(\pm N_t, 0)\\
-			&\equiv N_t^{(\pm)}
-		\end{split}
-	\end{equation}
-	to define the positive and negative inventory levels, $N_t^{(+)}$ and $N_t^{(-)}$, respectively. The Robot’s objective is to formulate a sequence of decision rules $\xi = \{U_0(D), U_1(D), \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost
-	\begin{equation}
-		\xi^* = \arg \min_{\xi} \mathbb{E}[C | D, I],
-	\end{equation}
-	where the cost $C$ is assumed to be discounted viz
-	\begin{equation}
-		C = \sum_{t=1}^{\infty} \gamma^{t} \left( h_t N_t^{(+)} + c_t N_{t}^{(-)} \right),
-		\label{eq:cost}
-	\end{equation}
-	where $\gamma \in [0,1]$ is a discount factor, and $h$ and $c$ represent storage (holding) and understocking costs, respectively. The optimal decisions satisfy the first-order condition
-	\begin{equation}
-		\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} \overset{!}{=} 0 \quad \forall m,
-		\label{eq:min_exp_cost}
-	\end{equation}
-	which leads to the optimal decision criterion (see Appendix~\ref{app:deriva} for a detailed derivation).
-	
-	\begin{theorem}[Optimal Decision Rule for Inventory Control]
-		Given the sequential decision-making framework and the asymmetric cost function in equation \eqref{eq:cost}, the optimal decision rule for the Robot at each time step $t$ is defined by
+	To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot is set in a game against an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. In this game the Robot and Nature each have to make a decision, $u\in \Omega_U\subset \mathbb{Z}_{\geq 0}$ and $s\in \Omega_S\subset \mathbb{Z}_{\geq 0}$ respectively, for each time step $t\in [1,T]$ ($T\geq L$) into the future. 
+	\begin{definition}[Stock level]
+		\label{def:stock}
+		Given an initial stock $N_0$, the stock level at time $t$ evolves according to
 		\begin{equation}
-			p(N_t^* \geq 0 | D, I) = \frac{c_t}{c_t + h_t},
+			\begin{split}
+				N_t &\equiv N_0 + \sum_{t'=1}^{t} (u_{t'-L} - s_{t'})\\
+				& = N_0+\upsilon_t-\zeta_t
+			\end{split},
+		\end{equation}
+		where $u_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$ and $\zeta_t\equiv \sum_{t'=1}^ts_{t'}$ and $\upsilon_t\equiv \sum_{t'=1}^tu_{t'-L}$. To support probabilistic decision-making, the Robot uses a probabilistic forecast based on data $D$
+		\begin{equation}
+			p(s_1, s_2, \dots s_T| D, I),
+		\end{equation}
+		where $I$ denotes any additional background information~\citep{Sivia2006}.
+	\end{definition}
+
+	\begin{definition}[Discounted Cost]
+		\label{def:cost}
+		The Robot receives a numerical penalty, assigned by a cost function, depending on the decisions $\{u\}, \{s\}$ made over the forecast horizon. The cost $C$ is assumed to be discounted and is defined as
+		\begin{equation}
+			C = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} 
+			\left( h_t 1_{N_t > 0} + c_t (1_{N_t > 0} - 1) \right) N_t,
+			\label{eq:cost}
+		\end{equation}
+		where $\gamma_{\text{disc}} \in [0,1]$ is the discount factor, $h_t$ and $c_t$ represent 
+		storage (holding) and understocking costs at time $t$, respectively, and 
+		$1_{N_t > 0}$ is the indicator function that equals 1 when $N_t > 0$ (see definition \ref{def:stock}) and $0$ otherwise.
+	\end{definition}
+	
+	\begin{definition}[Optimal Policy]
+		\label{def:policy}
+		Given the data $D$, the Robot’s objective is to formulate a sequence of decision rules, called a policy, $\pi = \{U_0(D)=u_0, U_1(D)=u_1, \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost (definition \ref{def:cost})
+		\begin{equation}
+			\pi^* = \arg \min_{\pi} \mathbb{E}[C| D, I]
+		\end{equation}
+		over the probability distribution of definition \ref{def:stock}. The optimal decisions rules satisfy the first- and second-order conditions
+		\begin{equation}
+			\begin{split}
+				\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} &= 0 \quad \forall m,\\
+				\frac{d^2}{dU_m^2} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} & > 0 \quad \forall m.
+			\end{split}
+			\label{eq:conditions}
+		\end{equation}
+	\end{definition}
+
+	\begin{theorem}[Optimal Policy Rule for Inventory Control]
+		\label{theorem:opt_policy}
+		Given the asymmetric cost function of definition \ref{def:cost} the optimal policy (definition \ref{def:policy}) for the Robot at each time step $t$ is defined by (see appendix \ref{app:deriva} for derivation)
+		\begin{equation}
+			p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
+			\label{eq:t1}
 		\end{equation}
 		where
 		\begin{equation}
-			N_t^* = N_0 + \sum_{t'=1}^{t} (U_{t'-L}^* - s_{t'}).
+			N_t^* = N_0 +\upsilon_t^*-\zeta_t,
 		\end{equation}
+		$\zeta_t-\zeta_{t-1}\geq 0$ and $\upsilon_t-\upsilon_{t-1}\geq 0$ by definition. Since negative decisions are not allowed, $\upsilon_t^* = 0$ is the optimal decision in case of $N_t\leq 0$. In this case, the condition in equation \eqref{eq:t1} is not strictly satisfied, as $p(N_t^* > 0 | D, I)$ becomes irrelevant due to the sufficient inventory at time $t$.
 	\end{theorem}
 	
-	This criterion implies that the optimal decisions correspond to the quantile threshold
+	
+	\section{Optimal Policy under Conditional Independence}
+	Equation \eqref{eq:t1} can be written
 	\begin{equation}
-		\sum_{t'=1}^{t} U_{t'-L}^* = Q_{\frac{c_t}{c_t+h_t}} \left( \sum_{t'=1}^{t} s_{t'} - N_0 \right),
+		\begin{split}
+			p(N_t^* > 0 | D, I) &= \sum_{s_1,\dots s_t}1_{N_{t}\geq 0}p(s_1,\dots s_t|D,I)\sum_{s_{t+1},\dots s_T}p(s_{t+1},\dots s_T|s_1,\dots s_t,D,I)\\
+			& = \sum_{\zeta_t=0}^{N_0+\upsilon_t}p(\zeta_t|D,I)\sum_{s_{t+1},\dots s_T}p(s_{t+1},\dots s_T|\zeta_t,D,I)\\
+		\end{split}
 	\end{equation}
-	where $Q_q(X)$ denotes the $q$-quantile of the random variable $X$. This result provides an actionable rule for the Robot’s decision-making based on the balance of costs associated with stock levels.
+	Assuming conditional independence $p(s_{t+1},\dots s_T|\zeta_t,D,I)=p(s_{t+1},\dots s_T|D,I)$
+	\begin{equation}
+			p(N_t^* > 0 | D, I)  = \sum_{\zeta_t=0}^{N_0+\upsilon_t}p(\zeta_t|D,I).
+			\label{eq:indep}
+	\end{equation}
+	Combining eqation \eqref{eq:indep} with theorem \ref{theorem:opt_policy} implies that the optimal policy is related to quantiles of $\zeta_t$ viz
+	\begin{equation}
+		\upsilon_t^* = \max(\text{round}(\mathcal{Q}_{\frac{c_t}{c_t+h_t}}\zeta_t-N_0),0),
+		\label{eq:opt}
+	\end{equation}
+	where $\mathcal{Q}_q(X)$ denotes the $q$-quantile of the random variable $X$ and the rounding ensures the decisions belong to $\Omega_U\subset \mathbb{Z}_{\geq 0}$. 
 	
-	\section{Practical Implementation}
+	\subsection{Policy Efficiency Ratio}
+	In order to gauge the effect of using the optimal policy (equation \eqref{eq:opt}), the associated expected cost can be compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
+	\begin{equation}
+		\text{PER}\equiv \frac{\mathbb{E}[C|D,I]|_{\pi=\pi^*}}{\mathbb{E}[C|D,I]|_{\pi=\pi'}},
+		\label{eq:per_def}
+	\end{equation}
+	where $\pi^*$ is the optimal policy (theorem \ref{theorem:opt_policy}) and $\pi'$ is the baseline policy. Note that PER$\in [0,1]$ by definition since the optimal policy by definition yield the lowest possible expected cost. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution (with time varying rate parameter) and ii) conditional independence, the expected cost can be written (see appendix \ref{app:expected_cost})
+	\begin{equation}
+		\begin{split}
+			\mathbb{E}[C|D,I] = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} \bigg(& 
+			(h_t+c_t)(N_0 + \upsilon_t)\frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)}\\&- (h_h+c_t)\lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)}\\
+			&- c_t(N_0 + \upsilon_t-\lambda_t)\bigg).
+		\end{split}
+		\label{eq:expected_cost}
+	\end{equation}
+	Equation \eqref{eq:expected_cost} can be used to calculate the exact PER for any baseline policy.
 	
+	\subsubsection{Example: Numerical Policy Efficiency Ratio}
+	To provide an example of usage of both theorem \ref{theorem:opt_policy} and the PER, the PER is considered with $N_0=37$, $L=6$, constant unit value $c_t=c$, constant holding cost $h_t=h$, Natures decisions shown in figure \ref{fig:ts} and the baseline policy of definition \ref{def:baseline}.
 	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/time_series.pdf}
+		\caption{Natures decisions as a function of time. Blue denotes the historical data available for the Robot, red denote the forecast made by the Robot (based on the historical data) and the black denotes the true future values for reference (not used).}
+		\label{fig:ts}
+	\end{figure}
+	\begin{definition}[Baseline Policy]  
+		\label{def:baseline}
+		The baseline policy is an $(R, Q)$ inventory policy~\citep{bartmann1992inventory,axsaeter2006inventory}, where the reorder point $R$ determines when to reorder, and the batch quantity, $Q$, is based on the expectation of Natures decisions
+		\begin{equation}  
+			\upsilon_t' = \max(\text{round}(\mathbb{E}[\zeta_t|D, I] + R - N_0), 0).  
+		\end{equation}  
+		The rounding ensures the order quantity is an integer, and the maximum function prevents negative orders.
+	\end{definition}
+		
+	Given the above setup, figure \ref{fig:per} presents a heatmap illustrating the Policy Efficiency Ratio (PER) as a function of the reorder point $R$ and the cost-to-holding ratio $\frac{c}{h}$. From the figure, several patterns emerge. In general there seem to be bands of approximately constant PER following $R\sim \ln\frac{c}{h}$ -lines. This band represent the optimal balancing point for $R$ for a given $\frac{c}{h}$. At $\frac{c}{h}=1, R=0$ the PER achieves its maximum at $\simeq 1$, which makes intuitive sense since if $h=c$, the cost function is balanced and the optimal balancing point would be at $R=0$. The maximum value of the band slightly decrease for increasing $\frac{c}{h}$, with PER$\sim 0.9$ as a mean value. Hence, even in case where the reorder point $R$ is optimized perfectly, there is a significantly higher expected cost (around $10\%$) for the baseline (R,Q) - policy relative to the optimal policy (theorem \ref{theorem:opt_policy}). 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/per.pdf}
+		\caption{Heatmap of the policy efficiency ratio (PER) calculated using equations \eqref{eq:expected_cost}, \eqref{eq:per_def}, definition \ref{def:baseline} and theorem \ref{theorem:opt_policy} with $N_0=37$, $L=6$ and Natures decisions shown in figure \ref{fig:ts}.}
+		\label{fig:per}
+	\end{figure}
+
 	
 	\section{Conclusion}
-	The derived decision rule offers a structured approach to managing inventory in a stochastic environment using Bayesian decision theory. The probabilistic framework accounts for demand uncertainty, guiding optimal actions based on expected costs. This work contributes to the field of inventory management by presenting an analytically derived solution, supporting practical applications in real-world inventory systems.
+	Assuming a company has a cost function on the form of definition \ref{def:cost}, they can use the PER in comparison with their current decision policy to i) gauge the expected improvement by implementing the optimal policy or alternatively tune the value of $R$ for their values of $\frac{c}{h}$. The PER shown in figure \ref{fig:per} indicate that for $\frac{c}{h}\gg 1$ the optimal policy yields a reduction of $\sim 10\%$ in expected cost. In case a company is not using decision theory in a formal way, the expected cost reduction may be significantly higher. 
 	
-	\begin{enumerate}
-		\item A few words on the intuitive interpretation of the cost function? The number of units overstocked multiplied with the cost of overstocking per unit. The number of units understocked multiplied with the value of each unit. The latter represents the lost value.
-		\item Mention the benefit of the analytical solution; the computation speed relative to a numerical optimization is highly beneficial at scale.
-		\item Compress the recursive relation to $m$-notation. 
-		
-	\end{enumerate}
 	
-	\begin{enumerate}
-		\item \href{https://www.academia.edu/27965536/Inventorycontroltextbook_140429044831_phpapp02_1_}{S. Axsäter. Inventory control}
-		\item \href{https://proceedings.mlr.press/v151/kan22a/kan22a.pdf}{Gasthaus paper}
-		\item \href{https://arxiv.org/pdf/2012.02392}{inspiration for introduction}
-		\item \href{https://arxiv.org/pdf/2310.17168}{probabilistic trucks}
-		\item \href{https://arxiv.org/pdf/2310.16096}{Amazon paper} (inspiration)
-	\end{enumerate}
 	
 	\newpage
 	\begin{appendices}
 		\input{chapters/app_deriv.tex}
+		\input{chapters/app_expected_cost.tex}
+		\input{chapters/app_poisson.tex}
+		\input{chapters/app_notes.tex}
 	\end{appendices}
 	
 	

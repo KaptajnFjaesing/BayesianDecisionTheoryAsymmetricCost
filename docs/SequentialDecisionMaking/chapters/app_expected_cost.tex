@@ -1,0 +1,33 @@
+\section{Expected Cost}
+\label{app:expected_cost}
+In this appendix, the policy efficiency ratio (PER, equation \eqref{eq:per_def}) is calculated under the assumption of i) $p(\zeta_t|D,I)$ follows a Poisson distribution and ii) conditional independence between $\zeta_t$. The first step consist of re-writing the expected cost
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C|D,I] &= \sum_{t=1}^{T}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t-1} \left( h_t 1_{N_t> 0} + c_t (1_{N_t> 0}-1) \right)N_tp(\zeta_t| D, I)\\
+		&= \sum_{t=1}^{T}\sum_{\zeta_t=0}^\infty \gamma_{\text{disc}}^{t-1} \bigg( 
+		(h_t+c_t)(N_0 + \upsilon_t)1_{N_t> 0}\\
+		&\qquad\qquad\qquad\quad-(h_t+c_t) 1_{N_t> 0}\zeta_t
+		- c_t(N_0 + \upsilon_t)+c_t\zeta_t\bigg)p(\zeta_t| D, I).
+	\end{split}
+\end{equation}
+The sums over $\zeta_t$ can be expressed as follows (see appendix \ref{sec:poisson_identities})
+\begin{equation}
+	\begin{split}
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}p(\zeta_t| D, I) & = \sum_{\zeta_t=0}^{N_0+\upsilon_t} p(\zeta_t| D, I)\\
+		&= \frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)},\\
+		\sum_{\zeta_t=0}^\infty1_{N_t> 0}\zeta_tp(\zeta_t| D, I) & = \sum_{\zeta_t=0}^{N_0+\upsilon_t} \zeta_t p(\zeta_t| D, I)\\
+		& = \lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)},\\
+		\sum_{\zeta_t=0}^\infty\zeta_tp(\zeta_t| D, I) & = \lambda_t,\\
+		\sum_{\zeta_t=0}^\infty p(\zeta_t| D, I) & = 1.\\
+	\end{split}
+	\label{eq:hest2}
+\end{equation}
+Collecting the results means
+\begin{equation}
+	\begin{split}
+		\mathbb{E}[C|D,I] = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} \bigg(& 
+		(h_t+c_t)(N_0 + \upsilon_t)\frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)}\\&- (h_h+c_t)\lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)}\\
+		&- c_t(N_0 + \upsilon_t-\lambda_t)\bigg).
+	\end{split}
+	\label{eq:exact}
+\end{equation}
