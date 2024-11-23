@@ -136,13 +136,13 @@ def compute_per(
     return per1, per2, U_opt, U_bas, per3, per4
 
 
-lambda_true = 30  # Mean (λ) of the Poisson distribution
+lambda_true = 10
 lambda_true_period = 10
 time_Series_length = 300
 forecast_horizon = 52
 number_of_samples = 1000
 
-training_data, forecasts, true_time_series = generate_data2(lambda_true, lambda_true_period, time_Series_length, forecast_horizon, number_of_samples)
+training_data, forecasts, true_time_series = generate_data(lambda_true, lambda_true_period, time_Series_length, forecast_horizon, number_of_samples)
 
 
 #%%
@@ -151,10 +151,10 @@ N0 = 37
 lead_time = 6
 
 # Define holding costs and unit values
-step1 = 0.2
-step2 = 0.2
-ch_ratio = np.arange(1, 10+step1, step1)
-reorder_point = np.arange(1, 10+step2, step2)
+step1 = 1
+step2 = 5
+ch_ratio = np.arange(1, 100+step1, step1)
+reorder_point = np.arange(1, 200+step2, step2)
 
 # Calculate heatmap values
 

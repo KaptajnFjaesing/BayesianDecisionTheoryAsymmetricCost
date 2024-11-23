@@ -21,7 +21,7 @@
 \newtheorem{exinn}{Example}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
-
+\newtheorem{axiom}{Axiom}
 
 
 \title{Sequential Decision-Making for Inventory Control using Bayesian Decision Theory}
@@ -47,7 +47,7 @@
 	In this study, Bayesian decision theory is utilized to address a sequential inventory control problem. Specifically, an optimal decision-making framework is derived based on a discounted asymmetric cost function, considering the impact of decisions made infinitely far into the future. Our model involves a decision-maker (henceforth referred to as the Robot) who manages stock levels over time in an interactive environment shaped by a random demand process. Through this setup, a mathematically rigorous and computationally feasible solution for optimal inventory decisions that account for uncertainty and asymmetric costs is derived.
 	
 	\section{Sequential Decision-Making Framework}
-	To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot is set in a game against an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. In this game the Robot and Nature each have to make a decision, $u\in \Omega_U\subset \mathbb{Z}_{\geq 0}$ and $s\in \Omega_S\subset \mathbb{Z}_{\geq 0}$ respectively, for each time step $t\in [1,T]$ into the future. 
+	To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot is set in a game against an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. In this game the Robot and Nature each have to make a decision, $u\in \Omega_U\subset \mathbb{Z}_{\geq 0}$ and $s\in \Omega_S\subset \mathbb{Z}_{\geq 0}$ respectively, for each time step $t\in [1,T]$ ($T\geq L$) into the future. 
 	\begin{definition}[Stock level]
 		\label{def:stock}
 		Given an initial stock $N_0$, the stock level at time $t$ evolves according to
@@ -89,13 +89,13 @@
 				\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} &= 0 \quad \forall m,\\
 				\frac{d^2}{dU_m^2} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} & > 0 \quad \forall m.
 			\end{split}
-			\label{eq:min_exp_cost}
+			\label{eq:conditions}
 		\end{equation}
 	\end{definition}
 
 	\begin{theorem}[Optimal Policy Rule for Inventory Control]
 		\label{theorem:opt_policy}
-		Given the sequential decision-making framework and the asymmetric cost function of definition \ref{def:cost}, the optimal policy for the Robot at each time step $t$ is defined by (see appendix \ref{app:deriva} for derivation)
+		Given the asymmetric cost function of definition \ref{def:cost} the optimal policy (definition \ref{def:policy}) for the Robot at each time step $t$ is defined by (see appendix \ref{app:deriva} for derivation)
 		\begin{equation}
 			p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
 			\label{eq:t1}
@@ -104,7 +104,7 @@
 		\begin{equation}
 			N_t^* = N_0 +\upsilon_t^*-\zeta_t,
 		\end{equation}
-		$\zeta_t-\zeta_{t-1}\geq 0$ and $\upsilon_t-\upsilon_{t-1}\geq 0$ by definition. However, if $N_0 +\upsilon_{t-1}> \zeta_t$, the optimal decision is $\upsilon_t^* = 0$. In this case, the condition in equation \eqref{eq:t1} is not strictly satisfied, as $p(N_t^* > 0 | D, I)$ becomes irrelevant due to the sufficient inventory at time $t$.
+		$\zeta_t-\zeta_{t-1}\geq 0$ and $\upsilon_t-\upsilon_{t-1}\geq 0$ by definition. Since negative decisions are not allowed, $\upsilon_t^* = 0$ is the optimal decision in case of $N_t\leq 0$. In this case, the condition in equation \eqref{eq:t1} is not strictly satisfied, as $p(N_t^* > 0 | D, I)$ becomes irrelevant due to the sufficient inventory at time $t$.
 	\end{theorem}
 	
 	
@@ -129,68 +129,51 @@
 	where $\mathcal{Q}_q(X)$ denotes the $q$-quantile of the random variable $X$ and the rounding ensures the decisions belong to $\Omega_U\subset \mathbb{Z}_{\geq 0}$. 
 	
 	\subsection{Policy Efficiency Ratio}
-	In order to gauge the effect of using the optimal policy (equation \eqref{eq:opt}), the associated expected cost is compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
+	In order to gauge the effect of using the optimal policy (equation \eqref{eq:opt}), the associated expected cost can be compared to the expected cost associated to a baseline policy via the policy efficiency ratio (PER)
 	\begin{equation}
 		\text{PER}\equiv \frac{\mathbb{E}[C|D,I]|_{\pi=\pi^*}}{\mathbb{E}[C|D,I]|_{\pi=\pi'}},
 		\label{eq:per_def}
 	\end{equation}
-	where $\pi^*$ is the optimal policy (theorem \ref{theorem:opt_policy}) and $\pi'$ is the baseline policy (definition \ref{def:baseline}).
-	
-	\begin{definition}[Baseline Policy]  
-		\label{def:baseline}
-		The baseline policy is an $(R, Q)$ inventory policy~\citep{bartmann1992inventory,axsaeter2006inventory}, where the reorder point $R$ determines when to reorder, and the batch quantity, $Q$, is based on the expected demand. Under this policy, the order quantity is determined by the expected demand, $\mathbb{E}[s_t|D, I]$, adjusted to bring the stock level up to the reorder point $R$
-		\begin{equation}  
-			\upsilon_t' = \max(\text{round}(\mathbb{E}[\zeta_t|D, I] + R - N_0), 0).  
-		\end{equation}  
-		The rounding ensures the order quantity is an integer, and the maximum function prevents negative orders.
-	\end{definition}
-
-	
-	\subsubsection{Scaling relations}
-	In general the PER is a function of $R, c_t, h_t, N_0$ as well as the distribution (and its details) of $\zeta_t$. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution and ii) conditional independence, the expected cost can be written (see appendix \ref{app:expected_cost})
+	where $\pi^*$ is the optimal policy (theorem \ref{theorem:opt_policy}) and $\pi'$ is the baseline policy. Note that PER$\in [0,1]$ by definition since the optimal policy by definition yield the lowest possible expected cost. Assuming i) $p(\zeta_t|D,I)$ follows a Poisson distribution (with time varying rate parameter) and ii) conditional independence, the expected cost can be written (see appendix \ref{app:expected_cost})
 	\begin{equation}
 		\begin{split}
 			\mathbb{E}[C|D,I] = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} \bigg(& 
 			(h_t+c_t)(N_0 + \upsilon_t)\frac{\Gamma(N_0+\upsilon_t+1,\lambda_t)}{\Gamma(N_0+\upsilon_t+1)}\\&- (h_h+c_t)\lambda_t \frac{\Gamma(N_0+\upsilon_t,\lambda_t)}{\Gamma(N_0+\upsilon_t)}\\
 			&- c_t(N_0 + \upsilon_t-\lambda_t)\bigg).
 		\end{split}
+		\label{eq:expected_cost}
 	\end{equation}
-	where $\Gamma$ is the gamma function and $\lambda_t=\mathbb{E}[\zeta_t|D, I]$ is the expected value of the Poisson distribution. Under further loose approximations specified in appendix \ref{label}, the PER can be approximated viz
-	\begin{equation}
-		\begin{split}
-			\text{PER}|_{R\sim 0} & \sim \frac{4}{2+\frac{h}{c}+\frac{c}{h}},\\
-			\text{PER}|_{R\gg 0} &\sim \frac{L-1}{T-1}+\frac{1}{R(1+\frac{h}{c})}.
-		\end{split}
-		\label{eq:per}
-	\end{equation}
-	Several things can be noted from \eqref{eq:per}, including: i) the PER is a function of $r\equiv \frac{c}{h}$, ii) the scaling according to $r$ is inverted for $R\sim 0$ and $R\gg 0$ and iii) the PER approach a constant value for $R\rightarrow \infty$.
-	
-	
-	
-	
-	
+	Equation \eqref{eq:expected_cost} can be used to calculate the exact PER for any baseline policy.
 	
 	\subsubsection{Example: Numerical Policy Efficiency Ratio}
-	To provide an example of implementation (see source code on Github) and test equation \eqref{eq:per} on an anecdotal level, consider the case where $N_0=37$, $L =6$ and $U_j\in \mathbb{Z}$, $0\leq U_j\leq 0$ for any time step. Data are mocked from a Poisson distribution with rate parameter $\lambda =3$. $300$ random samples are drawn to represent a mock time series, with the last $52$ reserved as test data and the remaining as training data. Based on the training data, the $\lambda$ is estimated using MLE and based on a Poisson distribution with this estimated rate parameter, a forecast of dimensions (number\_of\_samples, forecast\_horizon), with number\_of\_samples=$5\,000$ and forecast\_horizon=$52$, is drawn. The optimal and baseline policies applied to yield decision over the forecast horizon. Using these decisions, the actual costs are computed using the test data. This is done $5\,000$ times to yield an estimate of the PER for a particular $h,c$. This process is repeated for $c\in \mathbb{Z}$, $1\leq c\leq 100$ and $h\in \mathbb{Z}$, $1\leq c\leq 20$, yielding the PERs shown in figure \ref{fig:heatmap_numerical}. Figure \ref{fig:heatmap_numerical} clearly show the same pattern as figure \ref{fig:heatmap_analytical}, however, with slight differences (as expected for an approximation); i) the maximum slightly exceeds $1$ and ii) the minimum significantly deviates from $0$. The former is likely due to random fluctuations from approximating the expected cost from $5\, 000$ samples. Increasing the sample size gradually brings the maximum closer to $1$. 
-	
-	========= TO THIS POINT ==========
-	{\color{red} The latter? Is it an artefact, or due to numerical limitations? In the upper limit inaccuracy seems to be $\sim 0.04$. In the lower limit we have $\sim 0.2$... It can be inaccuracies of the approximation. I have defined the scale of the approximation based on deduction. Perhaps this is not perfectly accurate?}
-	
-
+	To provide an example of usage of both theorem \ref{theorem:opt_policy} and the PER, the PER is considered with $N_0=37$, $L=6$, constant unit value $c_t=c$, constant holding cost $h_t=h$, Natures decisions shown in figure \ref{fig:ts} and the baseline policy of definition \ref{def:baseline}.
 	
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width=0.49\textwidth]{figures/simulated_per.pdf}
-		\includegraphics[width=0.49\textwidth]{figures/simulated_per2.pdf}
-		\caption{Heatmap of the numerical policy efficiency ratio calculated via simulation.}
-		\label{fig:heatmap_numerical}
+		\includegraphics[width=1\textwidth]{figures/time_series.pdf}
+		\caption{Natures decisions as a function of time. Blue denotes the historical data available for the Robot, red denote the forecast made by the Robot (based on the historical data) and the black denotes the true future values for reference (not used).}
+		\label{fig:ts}
 	\end{figure}
-	
-
+	\begin{definition}[Baseline Policy]  
+		\label{def:baseline}
+		The baseline policy is an $(R, Q)$ inventory policy~\citep{bartmann1992inventory,axsaeter2006inventory}, where the reorder point $R$ determines when to reorder, and the batch quantity, $Q$, is based on the expectation of Natures decisions
+		\begin{equation}  
+			\upsilon_t' = \max(\text{round}(\mathbb{E}[\zeta_t|D, I] + R - N_0), 0).  
+		\end{equation}  
+		The rounding ensures the order quantity is an integer, and the maximum function prevents negative orders.
+	\end{definition}
+		
+	Given the above setup, figure \ref{fig:per} presents a heatmap illustrating the Policy Efficiency Ratio (PER) as a function of the reorder point $R$ and the cost-to-holding ratio $\frac{c}{h}$. From the figure, several patterns emerge. In general there seem to be bands of approximately constant PER following $R\sim \ln\frac{c}{h}$ -lines. This band represent the optimal balancing point for $R$ for a given $\frac{c}{h}$. At $\frac{c}{h}=1, R=0$ the PER achieves its maximum at $\simeq 1$, which makes intuitive sense since if $h=c$, the cost function is balanced and the optimal balancing point would be at $R=0$. The maximum value of the band slightly decrease for increasing $\frac{c}{h}$, with PER$\sim 0.9$ as a mean value. Hence, even in case where the reorder point $R$ is optimized perfectly, there is a significantly higher expected cost (around $10\%$) for the baseline (R,Q) - policy relative to the optimal policy (theorem \ref{theorem:opt_policy}). 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{figures/per.pdf}
+		\caption{Heatmap of the policy efficiency ratio (PER) calculated using equations \eqref{eq:expected_cost}, \eqref{eq:per_def}, definition \ref{def:baseline} and theorem \ref{theorem:opt_policy} with $N_0=37$, $L=6$ and Natures decisions shown in figure \ref{fig:ts}.}
+		\label{fig:per}
+	\end{figure}
 
 	
 	\section{Conclusion}
-	The derived decision rule offers a structured approach to managing inventory in a stochastic environment using Bayesian decision theory. The probabilistic framework accounts for demand uncertainty, guiding optimal actions based on expected costs. This work contributes to the field of inventory management by presenting an analytically derived solution, supporting practical applications in real-world inventory systems.
+	Assuming a company has a cost function on the form of definition \ref{def:cost}, they can use the PER in comparison with their current decision policy to i) gauge the expected improvement by implementing the optimal policy or alternatively tune the value of $R$ for their values of $\frac{c}{h}$. The PER shown in figure \ref{fig:per} indicate that for $\frac{c}{h}\gg 1$ the optimal policy yields a reduction of $\sim 10\%$ in expected cost. In case a company is not using decision theory in a formal way, the expected cost reduction may be significantly higher. 
 	
 	
 	
@@ -198,7 +181,6 @@
 	\begin{appendices}
 		\input{chapters/app_deriv.tex}
 		\input{chapters/app_expected_cost.tex}
-		\input{chapters/app_analytical_per.tex}
 		\input{chapters/app_poisson.tex}
 		\input{chapters/app_notes.tex}
 	\end{appendices}

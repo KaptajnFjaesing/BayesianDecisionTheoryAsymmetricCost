@@ -41,13 +41,13 @@ lambda_true = 3  # Mean (λ) of the Poisson distribution
 lambda_true_period = 20
 time_Series_length = 300
 forecast_horizon = 52
-number_of_samples = 100000
+number_of_samples = 10000
 
 training_data, forecasts, true_time_series = generate_data(lambda_true, lambda_true_period, time_Series_length, forecast_horizon, number_of_samples)
 
 plt.figure()
 plt.plot(np.arange(time_Series_length-forecast_horizon),training_data)
-plt.plot(np.arange(time_Series_length),lambda_true*(np.sin(2*np.pi*np.arange(time_Series_length)/lambda_true_period)+1)+np.random.normal(0,1))
+
 #%%
 U = np.array([0., 0., 0., 0., 0., 0., 0., 1., 3., 3., 5., 4., 4., 4., 3., 3., 5.,
        5., 2., 2., 5., 4., 1., 5., 5., 3., 3., 6., 2., 5., 2., 3., 3., 3.,

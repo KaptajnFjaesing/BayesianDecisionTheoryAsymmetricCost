@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  21 NOV 2024 21:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.1)  23 NOV 2024 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -358,11 +358,12 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 \c@exinn=\count300
 \c@theorem=\count301
 \c@definition=\count302
+\c@axiom=\count303
 
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2024-04-11 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count303
+\l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box55
 ) (document.aux)
 \openout1 = `document.aux'.
@@ -389,16 +390,16 @@ LaTeX Font Info:    ... okay on input line 31.
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count304
+\scratchcounter=\count305
 \scratchdimen=\dimen156
 \scratchbox=\box56
-\nofMPsegments=\count305
-\nofMParguments=\count306
+\nofMPsegments=\count306
+\nofMParguments=\count307
 \everyMPshowfont=\toks32
-\MPscratchCnt=\count307
+\MPscratchCnt=\count308
 \MPscratchDim=\dimen157
-\MPnumerator=\count308
-\makeMPintoPDFobject=\count309
+\MPnumerator=\count309
+\makeMPintoPDFobject=\count310
 \everyMPtoPDFconversion=\toks33
 )
 (C:\Users\roman\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -450,58 +451,54 @@ s[]; [] s[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 D; I\OT1/cmr/m/n/12 )$
  []
 
 [4]
+<figures/time_series.pdf, id=144, 722.7pt x 433.62pt>
+File: figures/time_series.pdf Graphic file (type pdf)
+<use figures/time_series.pdf>
+Package pdftex.def Info: figures/time_series.pdf  used on input line 153.
+(pdftex.def)             Requested size: 390.0pt x 233.99913pt.
 
-LaTeX Warning: Reference `label' on page 5 undefined on input line 158.
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Warning: Reference `fig:heatmap_analytical' on page 5 undefined on input 
-line 174.
-
+<figures/per.pdf, id=151, 722.7pt x 578.16pt>
+File: figures/per.pdf Graphic file (type pdf)
+<use figures/per.pdf>
+Package pdftex.def Info: figures/per.pdf  used on input line 169.
+(pdftex.def)             Requested size: 390.0pt x 311.99884pt.
 [5]
-<figures/simulated_per.pdf, id=175, 722.7pt x 578.16pt>
-File: figures/simulated_per.pdf Graphic file (type pdf)
-<use figures/simulated_per.pdf>
-Package pdftex.def Info: figures/simulated_per.pdf  used on input line 183.
-(pdftex.def)             Requested size: 191.10214pt x 152.87643pt.
-<figures/simulated_per2.pdf, id=176, 722.7pt x 581.05081pt>
-File: figures/simulated_per2.pdf Graphic file (type pdf)
-<use figures/simulated_per2.pdf>
-Package pdftex.def Info: figures/simulated_per2.pdf  used on input line 184.
-(pdftex.def)             Requested size: 191.10214pt x 153.64081pt.
- [6
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[6
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.194 	
-        <./figures/simulated_per.pdf> <./figures/simulated_per2.pdf>] [7]
-(chapters/app_deriv.tex [8]) (chapters/app_expected_cost.tex [9])
-(chapters/app_analytical_per.tex [10]
-Overfull \hbox (12.08965pt too wide) detected at line 57
-[]
- []
-
-[11] [12]) (chapters/app_poisson.tex [13]) (chapters/app_notes.tex [14])
-(document.bbl [15]) [16] (document.aux)
+l.177 	
+        <./figures/time_series.pdf>] [7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.180 	\newpage
+                <./figures/per.pdf>] (chapters/app_deriv.tex [8] [9])
+(chapters/app_expected_cost.tex [10]) (chapters/app_poisson.tex)
+(chapters/app_notes.tex [11] [12]) (document.bbl [13]) [14] (document.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: 6CB7709DA43F5E07371970BBFD002FD0;2768.
+(rerunfilecheck)             Checksum: F7FE8FF8DADE1F333737B60810DF1B15;1942.
  ) 
 Here is how much of TeX's memory you used:
- 11504 strings out of 474370
- 177022 string characters out of 5740536
- 1947754 words of memory out of 5000000
- 33628 multiletter control sequences out of 15000+600000
+ 11479 strings out of 474370
+ 176274 string characters out of 5740536
+ 1939754 words of memory out of 5000000
+ 33627 multiletter control sequences out of 15000+600000
  568488 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,20n,79p,1625b,639s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,19n,79p,1002b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmbx12.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -520,12 +517,10 @@ msfonts/cm/cmsy10.pfb><C:/Users/roman/AppData/Local/Programs/MiKTeX/fonts/type1
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/roman/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/roman/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Users/roman/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/
-roman/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb>
-Output written on document.pdf (16 pages, 474164 bytes).
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on document.pdf (14 pages, 368434 bytes).
 PDF statistics:
- 509 PDF objects out of 1000 (max. 8388607)
- 117 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 456 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 99 words of extra memory for PDF output out of 10000 (max. 10000000)
 
