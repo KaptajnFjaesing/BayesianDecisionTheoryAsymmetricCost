@@ -112,7 +112,7 @@
 	Equation \eqref{eq:t1} can be written
 	\begin{equation}
 		\begin{split}
-			p(N_t^* > 0 | D, I) &= \sum_{s_1,\dots s_t}1_{N_{t}\geq 0}p(s_1,\dots s_t|D,I)\sum_{s_{t+1},\dots s_T}p(s_{t+1},\dots s_T|s_1,\dots s_t,D,I)\\
+			p(N_t^* > 0 | D, I) &= \sum_{s_1,\dots s_t}1_{N_{t}> 0}p(s_1,\dots s_t|D,I)\sum_{s_{t+1},\dots s_T}p(s_{t+1},\dots s_T|s_1,\dots s_t,D,I)\\
 			& = \sum_{\zeta_t=0}^{N_0+\upsilon_t}p(\zeta_t|D,I)\sum_{s_{t+1},\dots s_T}p(s_{t+1},\dots s_T|\zeta_t,D,I)\\
 		\end{split}
 	\end{equation}
@@ -175,16 +175,13 @@
 	\section{Conclusion}
 	Assuming a company has a cost function on the form of definition \ref{def:cost}, they can use the PER in comparison with their current decision policy to i) gauge the expected improvement by implementing the optimal policy or alternatively tune the value of $R$ for their values of $\frac{c}{h}$. The PER shown in figure \ref{fig:per} indicate that for $\frac{c}{h}\gg 1$ the optimal policy yields a reduction of $\sim 10\%$ in expected cost. In case a company is not using decision theory in a formal way, the expected cost reduction may be significantly higher. 
 	
-	
-	
+
 	\newpage
 	\begin{appendices}
 		\input{chapters/app_deriv.tex}
 		\input{chapters/app_expected_cost.tex}
 		\input{chapters/app_poisson.tex}
-		\input{chapters/app_notes.tex}
 	\end{appendices}
-	
 	
 	
 	\bibliographystyle{plainnat}
