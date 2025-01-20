@@ -3,7 +3,7 @@ Created on Wed Nov  6 18:57:26 2024
 
 @author: Jonas Petersen
 """
-
+#%%
 import numpy as np
 from scipy.stats import poisson
 from scipy.special import gammaincc, gamma
@@ -88,3 +88,5 @@ plt.ylabel("y")
 plt.title(r"Plot of $(x - y) \Gamma(x, y) + y^x e^{-y}$")
 plt.show()
 
+
+# %%

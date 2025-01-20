@@ -3,7 +3,7 @@ Created on Tue Nov 19 19:10:31 2024
 
 @author: Jonas Petersen
 """
-
+#%%
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import gammaincc
@@ -41,3 +41,5 @@ def plot_function(f, cmap='viridis'):
 plot_function(f = gamma_ratio)
 plot_function(f = P1)
 plot_function(f = poisson_sum)
+
+# %%

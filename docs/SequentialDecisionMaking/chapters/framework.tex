@@ -1,0 +1,60 @@
+\section{Sequential Decision-Making Framework}
+To formalize the sequential decision-making problem, consider a stock management scenario in which the Robot is set in a game against an entity termed Nature, which represents environmental randomness~\citep{lavalle2006}. In this game the Robot and Nature each have to make a decision, $u\in \Omega_U\subset \mathbb{Z}_{\geq 0}$ and $s\in \Omega_S\subset \mathbb{Z}_{\geq 0}$ respectively, for each time step $t\in [1,T]$ ($T\geq L$) into the future. 
+\begin{definition}[Stock level]
+	\label{def:stock}
+	Given an initial stock $N_0$, the stock level at time $t$ evolves according to
+	\begin{equation}
+		\begin{split}
+			N_t &\equiv N_0 + \sum_{t'=1}^{t} (u_{t'-L} - s_{t'})\\
+			& = N_0+\upsilon_t-\zeta_t
+		\end{split},
+	\end{equation}
+	where $u_{t'-L}$ represents the decision made at an earlier time due to a potential lag $L$ and $\zeta_t\equiv \sum_{t'=1}^ts_{t'}$ and $\upsilon_t\equiv \sum_{t'=1}^tu_{t'-L}$. To support probabilistic decision-making, the Robot uses a probabilistic forecast based on data $D$
+	\begin{equation}
+		p(s_1, s_2, \dots s_T| D, I),
+	\end{equation}
+	where $I$ denotes any additional background information~\citep{Sivia2006}.
+\end{definition}
+
+\begin{definition}[Discounted Cost]
+	\label{def:cost}
+	The Robot receives a numerical penalty, assigned by a cost function, depending on the decisions $\{u\}, \{s\}$ made over the forecast horizon. The cost $C$ is assumed to be discounted and is defined as
+	\begin{equation}
+		C = \sum_{t=1}^{T} \gamma_{\text{disc}}^{t-1} 
+		\left( h_t 1_{N_t > 0} + c_t (1_{N_t > 0} - 1) \right) N_t,
+		\label{eq:cost}
+	\end{equation}
+	where $\gamma_{\text{disc}} \in [0,1]$ is the discount factor, $h_t$ and $c_t$ represent 
+	storage (holding) and understocking costs at time $t$, respectively, and 
+	$1_{N_t > 0}$ is the indicator function that equals 1 when $N_t > 0$ (see definition \ref{def:stock}) and $0$ otherwise.
+\end{definition}
+
+\begin{definition}[Optimal Policy]
+	\label{def:policy}
+	Given the data $D$, the Robot’s objective is to formulate a sequence of decision rules, called a policy, $\pi = \{U_0(D)=u_0, U_1(D)=u_1, \dots\}$, where each $U_j(D) = u_j$ minimizes the expected cost (definition \ref{def:cost})
+	\begin{equation}
+		\pi^* = \arg \min_{\pi} \mathbb{E}[C| D, I]
+	\end{equation}
+	over the probability distribution of definition \ref{def:stock}. The optimal decisions rules satisfy the first- and second-order conditions
+	\begin{equation}
+		\begin{split}
+			\frac{d}{dU_m} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} &= 0 \quad \forall m,\\
+			\frac{d^2}{dU_m^2} \mathbb{E}[C | D, I] \Big|_{U_m = U_m^*} & > 0 \quad \forall m.
+		\end{split}
+		\label{eq:conditions}
+	\end{equation}
+\end{definition}
+
+\begin{theorem}[Optimal Policy Rule for Inventory Control]
+	\label{theorem:opt_policy}
+	Given the asymmetric cost function of definition \ref{def:cost} the optimal policy (definition \ref{def:policy}) for the Robot at each time step $t$ is defined by (see appendix \ref{app:deriva} for derivation)
+	\begin{equation}
+		p(N_t^* > 0 | D, I) = \frac{c_t}{c_t + h_t},
+		\label{eq:t1}
+	\end{equation}
+	where
+	\begin{equation}
+		N_t^* = N_0 +\upsilon_t^*-\zeta_t,
+	\end{equation}
+	$\zeta_t-\zeta_{t-1}\geq 0$ and $\upsilon_t-\upsilon_{t-1}\geq 0$ by definition. Since negative decisions are not allowed, $\upsilon_t^* = 0$ is the optimal decision in case of $N_t\leq 0$. In this case, the condition in equation \eqref{eq:t1} is not strictly satisfied, as $p(N_t^* > 0 | D, I)$ becomes irrelevant due to the sufficient inventory at time $t$.
+\end{theorem}
