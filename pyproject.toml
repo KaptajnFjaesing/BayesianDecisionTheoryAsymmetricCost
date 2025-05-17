@@ -14,6 +14,7 @@ spyder-kernels = "2.5"
 matplotlib = "^3.8.3"
 tqdm = "^4.66.2"
 scipy = "^1.14.1"
+tornado = "^6.5"
 
 
 [tool.poetry.group.dev.dependencies]
